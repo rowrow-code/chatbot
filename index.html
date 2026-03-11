@@ -3,639 +3,633 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArubaDeals — Full Platform</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<title>ArubaDeals — Book. Show Up. Save.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root {
-  --sun: #F5A623; --coral: #FF5F5F; --ocean: #0077B6;
-  --deep: #023E8A; --sand: #FFF8EE; --dark: #0D1B2A;
-  --white: #FFFFFF; --mint: #00C49A; --light: #F0F4F8;
+  --sun:#F5A623; --coral:#FF5558; --ocean:#0077B6; --deep:#023E8A;
+  --sand:#FFF9F0; --dark:#0D1B2A; --white:#fff; --mint:#00C49A;
+  --light:#F2F6FA; --mid:#718096; --border:#E8EDF2;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'DM Sans',sans-serif; background:var(--sand); color:var(--dark); overflow-x:hidden; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--sand);color:var(--dark);overflow-x:hidden;}
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
 
-/* ── PAGES ── */
-.page { display:none; min-height:100vh; }
-.page.active { display:block; }
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:300;display:flex;justify-content:space-between;align-items:center;padding:14px 5%;background:rgba(255,249,240,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,166,35,0.15);}
+.logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;cursor:pointer;color:var(--dark);text-decoration:none;}
+.logo span{color:var(--coral);}
+.nav-r{display:flex;gap:10px;align-items:center;}
+.nb{padding:9px 18px;border-radius:100px;font-weight:600;font-size:0.83rem;cursor:pointer;border:none;font-family:inherit;transition:all .2s;}
+.nb-o{background:transparent;border:2px solid var(--border);color:var(--dark);}
+.nb-o:hover{border-color:var(--ocean);color:var(--ocean);}
+.nb-f{background:var(--coral);color:#fff;box-shadow:0 4px 14px rgba(255,85,88,.28);}
+.nb-f:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,85,88,.38);}
+.nav-user{display:none;align-items:center;gap:10px;}
+.nav-user.show{display:flex;}
+.nav-av{width:34px;height:34px;border-radius:50%;background:var(--ocean);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;}
+.nav-uname{font-weight:600;font-size:0.88rem;}
+.nav-out{background:none;border:none;color:var(--mid);font-size:0.8rem;cursor:pointer;font-family:inherit;padding:4px 8px;border-radius:8px;}
+.nav-out:hover{color:var(--coral);}
 
-/* ── NAV ── */
-nav {
-  position:fixed; top:0; width:100%; z-index:200;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:16px 5%;
-  background:rgba(255,248,238,0.94);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(245,166,35,0.2);
-}
-.nav-logo { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; text-decoration:none; color:var(--dark); cursor:pointer; }
-.nav-logo span { color:var(--coral); }
-.nav-right { display:flex; gap:12px; align-items:center; }
-.nav-btn { padding:9px 20px; border-radius:100px; font-weight:600; font-size:0.85rem; cursor:pointer; border:none; font-family:inherit; transition:all 0.2s; }
-.nav-btn-outline { background:transparent; border:2px solid rgba(13,27,42,0.2); color:var(--dark); }
-.nav-btn-outline:hover { border-color:var(--ocean); color:var(--ocean); }
-.nav-btn-fill { background:var(--coral); color:white; box-shadow:0 4px 14px rgba(255,95,95,0.3); }
-.nav-btn-fill:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(255,95,95,0.4); }
-.nav-user { display:none; align-items:center; gap:10px; }
-.nav-user.show { display:flex; }
-.nav-avatar { width:36px; height:36px; border-radius:50%; background:var(--ocean); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem; }
-.nav-user-name { font-weight:600; font-size:0.9rem; }
-.nav-logout { background:none; border:none; color:#718096; font-size:0.82rem; cursor:pointer; font-family:inherit; padding:4px 8px; border-radius:8px; }
-.nav-logout:hover { color:var(--coral); background:rgba(255,95,95,0.08); }
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 5% 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 50% at 85% 45%,rgba(0,119,182,.1) 0%,transparent 65%),radial-gradient(ellipse 40% 35% at 15% 75%,rgba(245,166,35,.13) 0%,transparent 55%);}
+.hero-c{position:relative;z-index:2;max-width:560px;}
+.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);color:#9a6200;padding:5px 14px;border-radius:100px;font-size:0.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;animation:fup .5s ease both;}
+h1.hh{font-family:'Fraunces',serif;font-size:clamp(2.6rem,5.5vw,4.8rem);font-weight:900;line-height:1.05;margin-bottom:18px;animation:fup .5s .1s ease both;}
+h1.hh em{font-style:italic;color:var(--coral);}
+.hsub{font-size:1rem;color:#4a5568;line-height:1.75;margin-bottom:28px;font-weight:300;animation:fup .5s .2s ease both;}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;animation:fup .5s .3s ease both;}
+.btn-p{background:var(--coral);color:#fff;padding:14px 28px;border-radius:100px;font-weight:600;font-size:.92rem;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 16px rgba(255,85,88,.3);}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(255,85,88,.38);}
+.btn-s{background:transparent;color:var(--dark);padding:14px 28px;border-radius:100px;font-weight:600;font-size:.92rem;border:2px solid var(--border);cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-s:hover{border-color:var(--ocean);color:var(--ocean);transform:translateY(-3px);}
 
-/* ── HERO ── */
-.hero {
-  min-height:100vh; display:flex; align-items:center;
-  padding:120px 5% 80px; position:relative; overflow:hidden;
-}
-.hero-bg {
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,119,182,0.1) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(245,166,35,0.12) 0%, transparent 60%);
-}
-.hero-content { position:relative; z-index:2; max-width:580px; }
-.hero-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.35);
-  color:#b07700; padding:6px 16px; border-radius:100px;
-  font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
-  margin-bottom:20px; animation:fadeUp 0.5s ease both;
-}
-h1.hero-h1 {
-  font-family:'Playfair Display',serif; font-size:clamp(2.8rem,5.5vw,5rem);
-  font-weight:900; line-height:1.06; margin-bottom:20px;
-  animation:fadeUp 0.5s 0.1s ease both;
-}
-h1.hero-h1 em { font-style:italic; color:var(--coral); }
-.hero-sub { font-size:1.05rem; color:#4a5568; line-height:1.75; margin-bottom:32px; font-weight:300; animation:fadeUp 0.5s 0.2s ease both; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation:fadeUp 0.5s 0.3s ease both; }
-.btn-primary { background:var(--coral); color:white; padding:15px 30px; border-radius:100px; font-weight:600; font-size:0.95rem; text-decoration:none; border:none; cursor:pointer; font-family:inherit; transition:all 0.2s; box-shadow:0 4px 18px rgba(255,95,95,0.3); }
-.btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(255,95,95,0.4); }
-.btn-secondary { background:transparent; color:var(--dark); padding:15px 30px; border-radius:100px; font-weight:600; font-size:0.95rem; text-decoration:none; border:2px solid rgba(13,27,42,0.18); cursor:pointer; font-family:inherit; transition:all 0.2s; }
-.btn-secondary:hover { border-color:var(--ocean); color:var(--ocean); transform:translateY(-3px); }
+/* HOW IT WORKS STRIP */
+.how-strip{background:var(--dark);padding:28px 5%;display:flex;gap:0;overflow-x:auto;}
+.how-step{display:flex;align-items:center;gap:14px;padding:0 32px 0 0;white-space:nowrap;flex-shrink:0;}
+.how-step:not(:last-child)::after{content:'→';color:rgba(255,255,255,.25);font-size:1.2rem;margin-right:32px;}
+.hs-num{width:32px;height:32px;border-radius:10px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;color:var(--sun);font-size:.85rem;flex-shrink:0;}
+.hs-text{color:rgba(255,255,255,.7);font-size:.82rem;font-weight:500;}
+.hs-text strong{color:#fff;display:block;font-size:.88rem;}
 
-/* Floating cards */
-.hero-float {
-  position:absolute; right:5%; top:50%; transform:translateY(-50%);
-  animation:float 4s ease-in-out infinite, fadeUp 0.7s 0.4s ease both;
-}
-@keyframes float { 0%,100%{transform:translateY(-50%)} 50%{transform:translateY(calc(-50% - 14px))} }
-.fcard {
-  background:white; border-radius:22px; width:280px;
-  box-shadow:0 28px 70px rgba(0,0,0,0.11); overflow:hidden;
-}
-.fcard-img { height:145px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; position:relative; }
-.fcard-badge { position:absolute; top:10px; left:10px; background:var(--coral); color:white; padding:4px 10px; border-radius:100px; font-size:0.7rem; font-weight:700; }
-.fcard-body { padding:14px 16px 16px; }
-.fcard-cat { font-size:0.7rem; color:var(--ocean); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px; }
-.fcard-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; margin-bottom:10px; line-height:1.3; }
-.fcard-price { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
-.fcard-new { font-size:1.3rem; font-weight:700; color:var(--coral); }
-.fcard-old { font-size:0.85rem; color:#a0aec0; text-decoration:line-through; }
-.fcard-save { background:rgba(0,196,154,0.1); color:var(--mint); padding:2px 7px; border-radius:6px; font-size:0.7rem; font-weight:700; }
-.fcard-bar { background:#f0f4f8; border-radius:100px; height:5px; margin-bottom:4px; }
-.fcard-fill { width:72%; height:100%; background:var(--coral); border-radius:100px; }
-.fcard-sold { font-size:0.7rem; color:#718096; }
+/* PAGE WRAPPER */
+.pw{padding:96px 5% 60px;}
+.ptitle{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;margin-bottom:6px;}
+.psub{color:var(--mid);margin-bottom:30px;font-size:.92rem;}
 
-/* ── DEALS GRID PAGE ── */
-.page-wrapper { padding:100px 5% 60px; }
-.page-title { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; margin-bottom:8px; }
-.page-sub { color:#718096; margin-bottom:36px; font-size:0.95rem; }
+/* FILTERS */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.fb{padding:7px 16px;border-radius:100px;border:2px solid var(--border);background:#fff;color:var(--dark);font-weight:500;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.fb.active,.fb:hover{background:var(--coral);border-color:var(--coral);color:#fff;}
 
-.filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
-.filter-btn { padding:8px 18px; border-radius:100px; border:2px solid rgba(13,27,42,0.12); background:white; color:var(--dark); font-weight:500; font-size:0.82rem; cursor:pointer; font-family:inherit; transition:all 0.2s; }
-.filter-btn.active, .filter-btn:hover { background:var(--coral); border-color:var(--coral); color:white; }
+/* DEALS GRID */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:20px;}
+.dcard{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.055);cursor:pointer;transition:transform .25s,box-shadow .25s;}
+.dcard:hover{transform:translateY(-7px);box-shadow:0 20px 46px rgba(0,0,0,.1);}
+.dimg{height:165px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
+.dimg img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.dimg .dem{position:relative;z-index:1;}
+.ddis{position:absolute;top:11px;right:11px;z-index:2;background:var(--coral);color:#fff;padding:4px 10px;border-radius:100px;font-weight:700;font-size:.75rem;}
+.dtbadge{position:absolute;bottom:9px;left:9px;z-index:2;background:rgba(13,27,42,.7);color:#fff;padding:4px 10px;border-radius:100px;font-size:.68rem;font-weight:600;backdrop-filter:blur(4px);display:flex;align-items:center;gap:5px;}
+.tdot{width:6px;height:6px;background:var(--coral);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.dbody{padding:15px 17px 18px;}
+.dcat{font-size:.68rem;color:var(--ocean);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.dname{font-family:'Fraunces',serif;font-size:.98rem;font-weight:700;margin-bottom:5px;line-height:1.3;}
+.dloc{font-size:.75rem;color:var(--mid);margin-bottom:11px;}
+.dpricing{display:flex;align-items:center;gap:8px;margin-bottom:11px;}
+.dnew{font-size:1.35rem;font-weight:700;color:var(--dark);}
+.dold{font-size:.82rem;color:#a0aec0;text-decoration:line-through;}
+.dsave{background:rgba(0,196,154,.1);color:var(--mint);padding:2px 7px;border-radius:6px;font-size:.7rem;font-weight:700;}
+.dpbar{background:var(--light);border-radius:100px;height:4px;margin-bottom:4px;}
+.dpfill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--mint),var(--ocean));}
+.dplbl{font-size:.68rem;color:var(--mid);}
+.dclaim{width:100%;padding:11px;background:var(--dark);color:#fff;border:none;border-radius:11px;font-weight:600;font-size:.85rem;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:11px;}
+.dclaim:hover{background:var(--coral);}
 
-.deals-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:22px; }
+/* MODALS */
+.ov{display:none;position:fixed;inset:0;background:rgba(13,27,42,.55);z-index:500;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(5px);}
+.ov.open{display:flex;}
+.modal{background:#fff;border-radius:26px;max-width:460px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 40px 90px rgba(0,0,0,.18);animation:min .3s ease;}
+@keyframes min{from{opacity:0;transform:scale(.93) translateY(18px)}to{opacity:1;transform:none}}
+.mc{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.07);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.mc:hover{background:rgba(0,0,0,.13);}
+.mi{padding:28px;position:relative;}
+.mimg{height:170px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;margin-bottom:18px;overflow:hidden;position:relative;}
+.mimg img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.mimg .mem{position:relative;z-index:1;}
+.mcat{font-size:.7rem;color:var(--ocean);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.mtitle{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:900;margin-bottom:6px;line-height:1.2;}
+.mloc{font-size:.82rem;color:var(--mid);margin-bottom:13px;}
+.mdesc{font-size:.9rem;color:#4a5568;line-height:1.72;margin-bottom:18px;}
+.mpricing{display:flex;align-items:center;gap:11px;margin-bottom:8px;}
+.mpnew{font-size:1.9rem;font-weight:900;color:var(--coral);font-family:'Fraunces',serif;}
+.mpold{font-size:.95rem;color:#a0aec0;text-decoration:line-through;}
+.mpsave{background:rgba(0,196,154,.1);color:var(--mint);padding:3px 10px;border-radius:7px;font-weight:700;font-size:.8rem;}
+.mpay-note{background:rgba(0,119,182,.06);border:1px solid rgba(0,119,182,.15);border-radius:12px;padding:12px 14px;font-size:.82rem;color:#2c5f8a;margin-bottom:18px;line-height:1.6;}
+.mpay-note strong{display:block;margin-bottom:3px;color:var(--ocean);}
+.mbuy{width:100%;padding:15px;background:var(--coral);color:#fff;border:none;border-radius:14px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 5px 18px rgba(255,85,88,.28);}
+.mbuy:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,85,88,.38);}
 
-.deal-card {
-  background:white; border-radius:20px; overflow:hidden;
-  box-shadow:0 4px 18px rgba(0,0,0,0.06); cursor:pointer;
-  transition:transform 0.25s, box-shadow 0.25s;
-}
-.deal-card:hover { transform:translateY(-7px); box-shadow:0 20px 48px rgba(0,0,0,0.11); }
-.deal-img {
-  height:170px; display:flex; align-items:center; justify-content:center;
-  font-size:3.8rem; position:relative; overflow:hidden;
-}
-.deal-img img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
-.deal-img .emoji { position:relative; z-index:1; }
-.deal-disc { position:absolute; top:12px; right:12px; z-index:2; background:var(--coral); color:white; padding:5px 11px; border-radius:100px; font-weight:700; font-size:0.78rem; }
-.deal-timer-badge { position:absolute; bottom:10px; left:10px; z-index:2; background:rgba(13,27,42,0.72); color:white; padding:4px 10px; border-radius:100px; font-size:0.7rem; font-weight:600; backdrop-filter:blur(4px); display:flex; align-items:center; gap:5px; }
-.tdot { width:6px; height:6px; background:var(--coral); border-radius:50%; animation:pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
-.deal-body { padding:16px 18px 20px; }
-.deal-cat { font-size:0.7rem; color:var(--ocean); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:5px; }
-.deal-name { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; margin-bottom:6px; line-height:1.3; }
-.deal-loc { font-size:0.78rem; color:#718096; margin-bottom:12px; }
-.deal-pricing { display:flex; align-items:center; gap:9px; margin-bottom:12px; }
-.d-new { font-size:1.4rem; font-weight:700; color:var(--dark); }
-.d-old { font-size:0.85rem; color:#a0aec0; text-decoration:line-through; }
-.d-pct { background:rgba(0,196,154,0.1); color:var(--mint); padding:2px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; }
-.progress-wrap { margin-bottom:13px; }
-.progress-bg { background:#f0f4f8; border-radius:100px; height:5px; margin-bottom:4px; }
-.progress-bar { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--mint),var(--ocean)); }
-.progress-lbl { font-size:0.7rem; color:#718096; }
-.claim-btn { width:100%; padding:12px; background:var(--dark); color:white; border:none; border-radius:12px; font-weight:600; font-size:0.88rem; cursor:pointer; font-family:inherit; transition:all 0.2s; }
-.claim-btn:hover { background:var(--coral); }
+/* BOOKING FLOW */
+.booking-steps{display:flex;gap:0;margin-bottom:24px;}
+.bstep{flex:1;text-align:center;padding:10px 4px;border-bottom:2px solid var(--border);font-size:.75rem;color:var(--mid);font-weight:500;transition:all .2s;}
+.bstep.active{border-color:var(--coral);color:var(--coral);font-weight:700;}
+.bstep.done{border-color:var(--mint);color:var(--mint);}
+.bpanel{display:none;}
+.bpanel.active{display:block;animation:fup .3s ease;}
 
-/* ── MODAL ── */
-.modal-overlay { display:none; position:fixed; inset:0; background:rgba(13,27,42,0.55); z-index:500; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(4px); }
-.modal-overlay.open { display:flex; }
-.modal { background:white; border-radius:28px; max-width:480px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 40px 100px rgba(0,0,0,0.2); animation:modalIn 0.3s ease; }
-@keyframes modalIn { from{opacity:0;transform:scale(0.92) translateY(20px)} to{opacity:1;transform:none} }
-.modal-close { position:absolute; top:16px; right:16px; background:rgba(0,0,0,0.08); border:none; width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
-.modal-close:hover { background:rgba(0,0,0,0.14); }
-.modal-inner { padding:32px; position:relative; }
-.modal-img { height:180px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:5rem; margin-bottom:20px; position:relative; overflow:hidden; }
-.modal-img img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
-.modal-img .m-emoji { position:relative; z-index:1; }
-.modal-cat { font-size:0.72rem; color:var(--ocean); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; }
-.modal-title { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; margin-bottom:8px; line-height:1.2; }
-.modal-loc { font-size:0.85rem; color:#718096; margin-bottom:16px; }
-.modal-desc { font-size:0.92rem; color:#4a5568; line-height:1.7; margin-bottom:20px; }
-.modal-pricing { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-.mp-new { font-size:2rem; font-weight:700; color:var(--coral); font-family:'Playfair Display',serif; }
-.mp-old { font-size:1rem; color:#a0aec0; text-decoration:line-through; }
-.mp-save { background:rgba(0,196,154,0.1); color:var(--mint); padding:4px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; }
-.modal-buy { width:100%; padding:16px; background:var(--coral); color:white; border:none; border-radius:16px; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; transition:all 0.2s; box-shadow:0 6px 20px rgba(255,95,95,0.3); }
-.modal-buy:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(255,95,95,0.4); }
+/* Slot picker */
+.slot-type-tabs{display:flex;background:var(--light);border-radius:12px;padding:3px;margin-bottom:18px;}
+.stt{flex:1;padding:9px;text-align:center;border-radius:9px;cursor:pointer;font-weight:600;font-size:.82rem;border:none;background:none;font-family:inherit;color:var(--mid);transition:all .2s;}
+.stt.active{background:#fff;color:var(--dark);box-shadow:0 2px 8px rgba(0,0,0,.07);}
 
-/* ── QR VOUCHER ── */
-.voucher-overlay { display:none; position:fixed; inset:0; background:rgba(13,27,42,0.65); z-index:600; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(6px); }
-.voucher-overlay.open { display:flex; }
-.voucher-card {
-  background:white; border-radius:28px; max-width:380px; width:100%;
-  box-shadow:0 40px 100px rgba(0,0,0,0.25); animation:modalIn 0.3s ease; overflow:hidden;
-}
-.voucher-top {
-  background:linear-gradient(135deg, var(--ocean), var(--deep));
-  padding:28px 28px 20px; color:white; text-align:center;
-}
-.voucher-logo { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:900; margin-bottom:4px; }
-.voucher-logo span { color:var(--sun); }
-.voucher-title { font-size:0.78rem; opacity:0.7; letter-spacing:0.08em; text-transform:uppercase; }
-.voucher-divider {
-  display:flex; align-items:center; gap:0;
-  background:linear-gradient(135deg, var(--ocean), var(--deep));
-  position:relative;
-}
-.voucher-divider::before, .voucher-divider::after {
-  content:''; width:24px; height:24px; background:var(--sand);
-  border-radius:50%; flex-shrink:0;
-}
-.voucher-divider::before { margin-left:-12px; }
-.voucher-divider::after { margin-right:-12px; }
-.voucher-dashes { flex:1; border-top:2px dashed rgba(255,255,255,0.3); }
-.voucher-body { padding:24px 28px 28px; text-align:center; }
-.voucher-deal-name { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:900; margin-bottom:4px; }
-.voucher-biz { font-size:0.82rem; color:#718096; margin-bottom:6px; }
-.voucher-price { font-size:1.8rem; font-weight:900; color:var(--coral); font-family:'Playfair Display',serif; margin-bottom:4px; }
-.voucher-orig { font-size:0.82rem; color:#a0aec0; text-decoration:line-through; margin-bottom:20px; }
-.voucher-qr { display:flex; justify-content:center; margin-bottom:16px; }
-.voucher-qr canvas, .voucher-qr img { border-radius:12px !important; }
-.voucher-code { font-size:0.78rem; color:#718096; letter-spacing:0.15em; margin-bottom:16px; font-weight:600; }
-.voucher-valid { background:rgba(0,196,154,0.08); border:1px solid rgba(0,196,154,0.2); color:var(--mint); padding:8px 16px; border-radius:10px; font-size:0.78rem; font-weight:600; margin-bottom:20px; display:inline-block; }
-.voucher-close { width:100%; padding:13px; background:var(--dark); color:white; border:none; border-radius:14px; font-weight:600; font-size:0.9rem; cursor:pointer; font-family:inherit; transition:background 0.2s; }
-.voucher-close:hover { background:var(--coral); }
-.voucher-instructions { font-size:0.78rem; color:#a0aec0; margin-top:12px; line-height:1.6; }
+.date-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+.date-opt{padding:10px 6px;border-radius:11px;border:2px solid var(--border);background:#fff;text-align:center;cursor:pointer;transition:all .2s;}
+.date-opt:hover{border-color:var(--coral);}
+.date-opt.selected{border-color:var(--coral);background:rgba(255,85,88,.05);}
+.do-day{font-size:.68rem;color:var(--mid);margin-bottom:2px;}
+.do-date{font-weight:700;font-size:.92rem;}
 
-/* ── AUTH PAGES ── */
-.auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 20px 40px; background:var(--sand); }
-.auth-card { background:white; border-radius:28px; padding:40px; max-width:420px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.08); }
-.auth-logo { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; text-align:center; margin-bottom:6px; }
-.auth-logo span { color:var(--coral); }
-.auth-sub { text-align:center; color:#718096; font-size:0.88rem; margin-bottom:32px; }
-.auth-tabs { display:flex; background:var(--light); border-radius:14px; padding:4px; margin-bottom:28px; }
-.auth-tab { flex:1; padding:10px; text-align:center; border-radius:10px; cursor:pointer; font-weight:600; font-size:0.85rem; transition:all 0.2s; border:none; background:none; font-family:inherit; color:#718096; }
-.auth-tab.active { background:white; color:var(--dark); box-shadow:0 2px 8px rgba(0,0,0,0.08); }
-.form-group { margin-bottom:18px; }
-.form-label { font-size:0.82rem; font-weight:600; color:#4a5568; display:block; margin-bottom:6px; }
-.form-input { width:100%; padding:13px 16px; border-radius:12px; border:2px solid #e2e8f0; font-size:0.92rem; font-family:inherit; outline:none; transition:border-color 0.2s; background:white; }
-.form-input:focus { border-color:var(--ocean); }
-.form-select { width:100%; padding:13px 16px; border-radius:12px; border:2px solid #e2e8f0; font-size:0.92rem; font-family:inherit; outline:none; background:white; cursor:pointer; }
-.form-btn { width:100%; padding:15px; background:var(--coral); color:white; border:none; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; transition:all 0.2s; box-shadow:0 4px 16px rgba(255,95,95,0.3); margin-top:8px; }
-.form-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,95,95,0.4); }
-.auth-switch { text-align:center; margin-top:20px; font-size:0.85rem; color:#718096; }
-.auth-switch a { color:var(--ocean); font-weight:600; cursor:pointer; text-decoration:none; }
-.form-error { color:var(--coral); font-size:0.8rem; margin-top:6px; display:none; }
-.form-error.show { display:block; }
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;}
+.time-opt{padding:10px;border-radius:11px;border:2px solid var(--border);background:#fff;text-align:center;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s;}
+.time-opt:hover:not(.full){border-color:var(--ocean);}
+.time-opt.selected{border-color:var(--ocean);background:rgba(0,119,182,.06);}
+.time-opt.full{opacity:.4;cursor:not-allowed;text-decoration:line-through;}
 
-/* ── BUSINESS DASHBOARD ── */
-.dashboard { padding:100px 5% 60px; }
-.dash-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:36px; }
-.dash-welcome { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; }
-.dash-welcome span { color:var(--coral); }
-.dash-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin-bottom:36px; }
-.stat-card { background:white; border-radius:18px; padding:20px 22px; box-shadow:0 4px 16px rgba(0,0,0,0.05); }
-.stat-card .s-label { font-size:0.75rem; color:#718096; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px; }
-.stat-card .s-val { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:900; color:var(--dark); }
-.stat-card .s-sub { font-size:0.75rem; color:var(--mint); font-weight:600; margin-top:4px; }
+/* WA input */
+.wa-wrap{display:flex;gap:10px;align-items:flex-start;}
+.wa-prefix{padding:13px 14px;background:var(--light);border:2px solid var(--border);border-radius:11px;font-weight:600;font-size:.9rem;white-space:nowrap;}
+.wa-input{flex:1;padding:13px 15px;border:2px solid var(--border);border-radius:11px;font-size:.92rem;font-family:inherit;outline:none;transition:border-color .2s;}
+.wa-input:focus{border-color:var(--ocean);}
 
-.dash-section-title { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:20px; }
-.add-deal-btn { display:flex; align-items:center; gap:8px; background:var(--coral); color:white; border:none; padding:12px 22px; border-radius:100px; font-weight:600; font-size:0.88rem; cursor:pointer; font-family:inherit; transition:all 0.2s; box-shadow:0 4px 14px rgba(255,95,95,0.3); }
-.add-deal-btn:hover { transform:translateY(-2px); }
-.add-deal-btn::before { content:'+'; font-size:1.2rem; font-weight:300; }
+/* Booking summary */
+.bsummary{background:var(--light);border-radius:14px;padding:16px 18px;margin-bottom:18px;}
+.bsum-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.85rem;}
+.bsum-row:not(:last-child){border-bottom:1px solid var(--border);}
+.bsum-row .label{color:var(--mid);}
+.bsum-row .val{font-weight:600;}
+.bsum-row.total .val{color:var(--coral);font-size:1.1rem;font-family:'Fraunces',serif;font-weight:900;}
 
-.my-deals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:18px; }
-.my-deal-card { background:white; border-radius:16px; padding:18px; box-shadow:0 4px 14px rgba(0,0,0,0.05); position:relative; }
-.my-deal-status { position:absolute; top:14px; right:14px; padding:4px 10px; border-radius:100px; font-size:0.7rem; font-weight:700; }
-.status-live { background:rgba(0,196,154,0.1); color:var(--mint); }
-.status-pending { background:rgba(245,166,35,0.1); color:#b07700; }
-.my-deal-emoji { font-size:2.2rem; margin-bottom:10px; display:block; }
-.my-deal-name { font-family:'Playfair Display',serif; font-weight:700; font-size:0.98rem; margin-bottom:4px; }
-.my-deal-price { color:var(--coral); font-weight:700; margin-bottom:10px; font-size:0.9rem; }
-.my-deal-stats { display:flex; gap:16px; font-size:0.75rem; color:#718096; }
-.my-deal-stats span { font-weight:600; color:var(--dark); font-size:0.85rem; }
-.deal-actions { display:flex; gap:8px; margin-top:12px; }
-.deal-action-btn { flex:1; padding:8px; border-radius:10px; border:none; cursor:pointer; font-size:0.78rem; font-weight:600; font-family:inherit; transition:all 0.2s; }
-.btn-edit { background:var(--light); color:var(--dark); }
-.btn-edit:hover { background:#e2e8f0; }
-.btn-delete { background:rgba(255,95,95,0.08); color:var(--coral); }
-.btn-delete:hover { background:rgba(255,95,95,0.15); }
+/* VOUCHER */
+.voucher-ov{display:none;position:fixed;inset:0;background:rgba(13,27,42,.65);z-index:600;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(7px);}
+.voucher-ov.open{display:flex;}
+.vcard{background:#fff;border-radius:26px;max-width:360px;width:100%;box-shadow:0 40px 90px rgba(0,0,0,.22);animation:min .3s ease;overflow:hidden;}
+.vtop{background:linear-gradient(135deg,var(--ocean),var(--deep));padding:24px 24px 18px;color:#fff;text-align:center;}
+.vlogo{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;margin-bottom:3px;}
+.vlogo span{color:var(--sun);}
+.vsub{font-size:.72rem;opacity:.65;letter-spacing:.08em;text-transform:uppercase;}
+.vdivider{display:flex;align-items:center;background:linear-gradient(135deg,var(--ocean),var(--deep));}
+.vdivider::before,.vdivider::after{content:'';width:22px;height:22px;background:var(--sand);border-radius:50%;flex-shrink:0;}
+.vdivider::before{margin-left:-11px;}
+.vdivider::after{margin-right:-11px;}
+.vdashes{flex:1;border-top:2px dashed rgba(255,255,255,.25);}
+.vbody{padding:22px 24px 26px;text-align:center;}
+.vdname{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;margin-bottom:3px;}
+.vbiz{font-size:.78rem;color:var(--mid);margin-bottom:4px;}
+.vslot{font-size:.8rem;color:var(--ocean);font-weight:600;margin-bottom:4px;}
+.vprice{font-size:1.7rem;font-weight:900;color:var(--coral);font-family:'Fraunces',serif;margin-bottom:2px;}
+.vorig{font-size:.78rem;color:#a0aec0;text-decoration:line-through;margin-bottom:16px;}
+.vqr{display:flex;justify-content:center;margin-bottom:12px;}
+.vcode{font-size:.75rem;color:var(--mid);letter-spacing:.15em;margin-bottom:8px;font-weight:600;}
+.vvalid{background:rgba(0,196,154,.08);border:1px solid rgba(0,196,154,.2);color:var(--mint);padding:7px 14px;border-radius:9px;font-size:.75rem;font-weight:600;margin-bottom:14px;display:inline-block;}
+.vwa{background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:10px;padding:10px 14px;font-size:.75rem;color:#1a7a3a;margin-bottom:16px;line-height:1.6;}
+.vwa strong{display:block;color:#1a7a3a;margin-bottom:2px;}
+.vclose{width:100%;padding:12px;background:var(--dark);color:#fff;border:none;border-radius:13px;font-weight:600;font-size:.88rem;cursor:pointer;font-family:inherit;transition:background .2s;}
+.vclose:hover{background:var(--coral);}
+
+/* AUTH */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:96px 18px 40px;background:var(--sand);}
+.acard{background:#fff;border-radius:26px;padding:36px;max-width:400px;width:100%;box-shadow:0 18px 55px rgba(0,0,0,.07);}
+.alogo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;text-align:center;margin-bottom:5px;}
+.alogo span{color:var(--coral);}
+.asub{text-align:center;color:var(--mid);font-size:.85rem;margin-bottom:28px;}
+.fg{margin-bottom:16px;}
+.fl{font-size:.8rem;font-weight:600;color:#4a5568;display:block;margin-bottom:5px;}
+.fi{width:100%;padding:12px 14px;border-radius:11px;border:2px solid var(--border);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s;}
+.fi:focus{border-color:var(--ocean);}
+.fsel{width:100%;padding:12px 14px;border-radius:11px;border:2px solid var(--border);font-size:.9rem;font-family:inherit;outline:none;background:#fff;cursor:pointer;}
+.fbtn{width:100%;padding:14px;background:var(--coral);color:#fff;border:none;border-radius:13px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 14px rgba(255,85,88,.28);margin-top:6px;}
+.fbtn:hover{transform:translateY(-2px);}
+.ferr{color:var(--coral);font-size:.78rem;margin-top:5px;display:none;}
+.ferr.show{display:block;}
+.aswitch{text-align:center;margin-top:18px;font-size:.83rem;color:var(--mid);}
+.aswitch a{color:var(--ocean);font-weight:600;cursor:pointer;}
+.demo-hint{text-align:center;margin-top:14px;padding:11px;background:var(--light);border-radius:11px;font-size:.75rem;color:var(--mid);}
+
+/* DASHBOARD */
+.dash{padding:96px 5% 60px;}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:30px;}
+.dwelcome{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;}
+.dwelcome span{color:var(--coral);}
+.dstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:30px;}
+.sc{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 4px 14px rgba(0,0,0,.045);}
+.sc .sl{font-size:.72rem;color:var(--mid);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;}
+.sc .sv{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;}
+.sc .ss{font-size:.72rem;color:var(--mint);font-weight:600;margin-top:3px;}
+.dsec{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;margin-bottom:16px;}
+.add-btn{display:flex;align-items:center;gap:7px;background:var(--coral);color:#fff;border:none;padding:11px 20px;border-radius:100px;font-weight:600;font-size:.85rem;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 13px rgba(255,85,88,.28);}
+.add-btn:hover{transform:translateY(-2px);}
+.mdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:40px;}
+.mdc{background:#fff;border-radius:15px;padding:16px;box-shadow:0 4px 13px rgba(0,0,0,.045);position:relative;}
+.mdc-status{position:absolute;top:13px;right:13px;padding:3px 9px;border-radius:100px;font-size:.68rem;font-weight:700;}
+.s-live{background:rgba(0,196,154,.1);color:var(--mint);}
+.mdc-em{font-size:2rem;margin-bottom:8px;display:block;}
+.mdc-name{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;margin-bottom:3px;}
+.mdc-price{color:var(--coral);font-weight:700;margin-bottom:8px;font-size:.88rem;}
+.mdc-stats{display:flex;gap:14px;font-size:.72rem;color:var(--mid);}
+.mdc-stats span{font-weight:700;color:var(--dark);font-size:.82rem;}
+.mdc-del{margin-top:11px;width:100%;padding:7px;border-radius:9px;border:none;background:rgba(255,85,88,.07);color:var(--coral);cursor:pointer;font-size:.75rem;font-weight:600;font-family:inherit;transition:all .2s;}
+.mdc-del:hover{background:rgba(255,85,88,.15);}
+
+/* INVOICE SECTION */
+.invoice-section{background:#fff;border-radius:20px;padding:28px;box-shadow:0 4px 14px rgba(0,0,0,.045);}
+.inv-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.inv-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;}
+.inv-month{font-size:.82rem;color:var(--mid);}
+.inv-table{width:100%;border-collapse:collapse;}
+.inv-table th{text-align:left;font-size:.72rem;font-weight:700;color:var(--mid);letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;background:var(--light);border-radius:8px;}
+.inv-table td{padding:11px 12px;font-size:.85rem;border-bottom:1px solid var(--border);}
+.inv-table tr:last-child td{border-bottom:none;}
+.inv-total-row td{font-weight:700;color:var(--coral);font-family:'Fraunces',serif;font-size:1rem;}
+.dl-inv{padding:9px 18px;background:var(--dark);color:#fff;border:none;border-radius:100px;font-weight:600;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.dl-inv:hover{background:var(--coral);}
+.empty-inv{text-align:center;padding:28px;color:#a0aec0;font-size:.88rem;}
 
 /* ADD DEAL MODAL */
-.add-deal-modal { display:none; position:fixed; inset:0; background:rgba(13,27,42,0.6); z-index:500; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(4px); }
-.add-deal-modal.open { display:flex; }
-.add-modal-inner { background:white; border-radius:28px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; padding:36px; box-shadow:0 40px 100px rgba(0,0,0,0.2); animation:modalIn 0.3s ease; position:relative; }
-.add-modal-title { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; margin-bottom:6px; }
-.add-modal-sub { color:#718096; font-size:0.88rem; margin-bottom:28px; }
+.adm{display:none;position:fixed;inset:0;background:rgba(13,27,42,.6);z-index:500;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(5px);}
+.adm.open{display:flex;}
+.admi{background:#fff;border-radius:26px;max-width:500px;width:100%;max-height:92vh;overflow-y:auto;padding:32px;box-shadow:0 40px 90px rgba(0,0,0,.18);animation:min .3s ease;position:relative;}
+.adm-title{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;margin-bottom:5px;}
+.adm-sub{color:var(--mid);font-size:.85rem;margin-bottom:24px;}
+.upload-area{border:2px dashed var(--border);border-radius:14px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:#fafbfc;margin-bottom:5px;}
+.upload-area:hover{border-color:var(--coral);background:rgba(255,85,88,.02);}
+.upload-area input{display:none;}
+.up-icon{font-size:2.2rem;margin-bottom:8px;}
+.up-text{font-weight:600;font-size:.88rem;margin-bottom:3px;}
+.up-hint{font-size:.75rem;color:#a0aec0;}
+.up-preview{width:100%;height:150px;border-radius:11px;object-fit:cover;margin-top:10px;display:none;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.expiry-tabs{display:flex;background:var(--light);border-radius:11px;padding:3px;margin-bottom:0;}
+.et{flex:1;padding:8px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;font-size:.8rem;border:none;background:none;font-family:inherit;color:var(--mid);transition:all .2s;}
+.et.active{background:#fff;color:var(--dark);box-shadow:0 2px 7px rgba(0,0,0,.06);}
 
-/* Upload area */
-.upload-area {
-  border:2px dashed #e2e8f0; border-radius:16px; padding:32px;
-  text-align:center; cursor:pointer; transition:all 0.2s; margin-bottom:6px;
-  background:#fafbfc;
-}
-.upload-area:hover { border-color:var(--coral); background:rgba(255,95,95,0.02); }
-.upload-area input { display:none; }
-.upload-icon { font-size:2.5rem; margin-bottom:10px; }
-.upload-text { font-weight:600; font-size:0.9rem; color:var(--dark); margin-bottom:4px; }
-.upload-hint { font-size:0.78rem; color:#a0aec0; }
-.upload-preview { width:100%; height:160px; border-radius:12px; object-fit:cover; margin-top:12px; display:none; }
+/* SCAN PAGE */
+.scan-pg{padding:96px 5% 60px;max-width:480px;margin:0 auto;}
+.scan-title{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;margin-bottom:6px;}
+.scan-sub{color:var(--mid);margin-bottom:28px;font-size:.92rem;}
+.scan-iw{display:flex;gap:10px;margin-bottom:20px;}
+.scan-in{flex:1;padding:13px 16px;border-radius:13px;border:2px solid var(--border);font-size:.92rem;font-family:inherit;outline:none;transition:border-color .2s;}
+.scan-in:focus{border-color:var(--ocean);}
+.scan-vbtn{padding:13px 20px;background:var(--ocean);color:#fff;border:none;border-radius:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s;font-size:.88rem;}
+.scan-vbtn:hover{background:var(--deep);}
+.scan-res{background:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(0,0,0,.07);display:none;}
+.scan-res.show{display:block;animation:fup .35s ease;}
+.sr-top{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.sr-icon{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.sr-valid .sr-icon{background:rgba(0,196,154,.1);}
+.sr-invalid .sr-icon{background:rgba(255,85,88,.1);}
+.sr-used .sr-icon{background:rgba(245,166,35,.1);}
+.sr-h{font-weight:700;font-size:1rem;}
+.sr-valid .sr-h{color:var(--mint);}
+.sr-invalid .sr-h{color:var(--coral);}
+.sr-used .sr-h{color:var(--sun);}
+.sr-p{font-size:.8rem;color:var(--mid);}
+.sr-info{background:var(--light);border-radius:12px;padding:14px 16px;}
+.sr-dname{font-family:'Fraunces',serif;font-weight:700;font-size:1rem;margin-bottom:3px;}
+.sr-det{font-size:.78rem;color:var(--mid);margin-bottom:3px;}
+.sr-wa{font-size:.78rem;color:var(--ocean);font-weight:600;}
+.sr-mbtn{width:100%;margin-top:14px;padding:13px;background:var(--mint);color:#fff;border:none;border-radius:13px;font-weight:700;font-family:inherit;cursor:pointer;font-size:.9rem;transition:all .2s;}
+.sr-mbtn:hover{background:#00a880;}
 
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+/* UTILITIES */
+@keyframes fup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.toast{position:fixed;bottom:22px;right:22px;z-index:999;background:var(--dark);color:#fff;padding:12px 20px;border-radius:13px;font-weight:600;font-size:.85rem;box-shadow:0 10px 28px rgba(0,0,0,.18);transform:translateY(70px);opacity:0;transition:all .3s;max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.empty-st{text-align:center;padding:44px 18px;color:#a0aec0;}
+.empty-st .ei{font-size:3rem;margin-bottom:10px;}
+.form-note{background:rgba(0,119,182,.06);border:1px solid rgba(0,119,182,.14);border-radius:10px;padding:10px 13px;font-size:.78rem;color:#2c5f8a;margin-bottom:14px;line-height:1.6;}
 
-/* ── SCAN PAGE (Business scans QR) ── */
-.scan-page { padding:100px 5% 60px; max-width:500px; margin:0 auto; }
-.scan-title { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; margin-bottom:8px; }
-.scan-sub { color:#718096; margin-bottom:32px; }
-.scan-input-wrap { display:flex; gap:12px; margin-bottom:24px; }
-.scan-input { flex:1; padding:14px 18px; border-radius:14px; border:2px solid #e2e8f0; font-size:0.95rem; font-family:inherit; outline:none; transition:border-color 0.2s; }
-.scan-input:focus { border-color:var(--ocean); }
-.scan-btn { padding:14px 22px; background:var(--ocean); color:white; border:none; border-radius:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:all 0.2s; }
-.scan-btn:hover { background:var(--deep); }
-.scan-result { background:white; border-radius:20px; padding:28px; box-shadow:0 8px 30px rgba(0,0,0,0.08); display:none; }
-.scan-result.show { display:block; animation:fadeUp 0.4s ease; }
-.scan-valid { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-.scan-check { width:48px; height:48px; border-radius:50%; background:rgba(0,196,154,0.1); display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:var(--mint); }
-.scan-valid-text h3 { font-weight:700; font-size:1.05rem; color:var(--mint); }
-.scan-valid-text p { font-size:0.82rem; color:#718096; }
-.scan-deal-info { background:var(--light); border-radius:14px; padding:16px; }
-.scan-deal-name { font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem; margin-bottom:4px; }
-.scan-deal-detail { font-size:0.82rem; color:#718096; }
-.scan-mark-btn { width:100%; margin-top:16px; padding:14px; background:var(--mint); color:white; border:none; border-radius:14px; font-weight:700; font-family:inherit; cursor:pointer; font-size:0.95rem; transition:all 0.2s; }
-.scan-mark-btn:hover { background:#00a880; }
-
-/* ── UTILITIES ── */
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.toast { position:fixed; bottom:24px; right:24px; z-index:999; background:var(--dark); color:white; padding:14px 22px; border-radius:14px; font-weight:600; font-size:0.88rem; box-shadow:0 10px 30px rgba(0,0,0,0.2); transform:translateY(80px); opacity:0; transition:all 0.3s; }
-.toast.show { transform:translateY(0); opacity:1; }
-.empty-state { text-align:center; padding:48px 20px; color:#a0aec0; }
-.empty-state .es-icon { font-size:3.5rem; margin-bottom:12px; }
-.empty-state p { font-size:0.95rem; }
-
-@media(max-width:900px) { .hero-float { display:none; } }
-@media(max-width:600px) { .form-row { grid-template-columns:1fr; } nav .nav-right .nav-btn-outline { display:none; } }
+@media(max-width:900px){.hero-float{display:none;}}
+@media(max-width:600px){.frow{grid-template-columns:1fr;}.nav-r .nb-o{display:none;}.how-strip{display:none;}}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showPage('home')">Aruba<span>Deals</span></div>
-  <div class="nav-right">
+  <div class="logo" onclick="showPage('home')">Aruba<span>Deals</span></div>
+  <div class="nav-r">
     <div class="nav-user" id="navUser">
-      <div class="nav-avatar" id="navAvatar">?</div>
-      <span class="nav-user-name" id="navUserName"></span>
-      <button class="nav-logout" onclick="logout()">Sign out</button>
+      <div class="nav-av" id="navAv">?</div>
+      <span class="nav-uname" id="navUN"></span>
+      <button class="nav-out" onclick="logout()">Sign out</button>
     </div>
-    <button class="nav-btn nav-btn-outline" id="navLoginBtn" onclick="showPage('login')">Log in</button>
-    <button class="nav-btn nav-btn-fill" id="navSignupBtn" onclick="showPage('signup')">List Your Business</button>
-    <button class="nav-btn nav-btn-fill" id="navDashBtn" style="display:none" onclick="showPage('dashboard')">My Dashboard</button>
+    <button class="nb nb-o" id="navLogin" onclick="showPage('login')">Business Login</button>
+    <button class="nb nb-f" id="navSignup" onclick="showPage('signup')">List Your Business</button>
+    <button class="nb nb-f" id="navDash" style="display:none" onclick="showPage('dashboard')">My Dashboard</button>
+    <button class="nb nb-o" id="navDeals" onclick="showPage('deals')">Browse Deals</button>
   </div>
 </nav>
 
-<!-- ══════════ HOME PAGE ══════════ -->
+<!-- ═══ HOME ═══ -->
 <div id="page-home" class="page active">
-  <!-- Hero -->
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-content">
-      <div class="hero-badge">🌞 Aruba's #1 Deals Platform</div>
-      <h1 class="hero-h1">Best Deals on the <em>Happiest</em> Island</h1>
-      <p class="hero-sub">Exclusive discounts from real local businesses — restaurants, tours, spas & more. Buy online, get your QR voucher instantly, redeem on arrival.</p>
-      <div class="hero-btns">
-        <button class="btn-primary" onclick="showPage('deals')">Browse Today's Deals</button>
-        <button class="btn-secondary" onclick="showPage('signup')">List Your Business</button>
-      </div>
-    </div>
-    <div class="hero-float">
-      <div class="fcard">
-        <div class="fcard-img" style="background:linear-gradient(135deg,#0077B6,#023E8A)">
-          <span class="emoji">🤿</span>
-          <div class="fcard-badge">🔥 HOT</div>
-        </div>
-        <div class="fcard-body">
-          <div class="fcard-cat">Water Sports</div>
-          <div class="fcard-title">Full Day Snorkeling & Catamaran</div>
-          <div class="fcard-price">
-            <span class="fcard-new">$49</span>
-            <span class="fcard-old">$120</span>
-            <span class="fcard-save">Save 59%</span>
-          </div>
-          <div class="fcard-bar"><div class="fcard-fill"></div></div>
-          <div class="fcard-sold">72 of 100 claimed</div>
-        </div>
+    <div class="hero-c">
+      <div class="badge">🌞 Aruba's Smartest Deals Platform</div>
+      <h1 class="hh">Book a deal.<br><em>Show up.</em> Save big.</h1>
+      <p class="hsub">Browse exclusive discounts from real Aruba businesses. Book your slot, get a QR voucher on WhatsApp, pay the discounted price when you arrive. Simple as that.</p>
+      <div class="hbtns">
+        <button class="btn-p" onclick="showPage('deals')">Browse Today's Deals</button>
+        <button class="btn-s" onclick="showPage('signup')">List Your Business — Free</button>
       </div>
     </div>
   </section>
-</div>
-
-<!-- ══════════ DEALS PAGE ══════════ -->
-<div id="page-deals" class="page">
-  <div class="page-wrapper">
-    <div class="page-title">Today's Deals 🌴</div>
-    <div class="page-sub">Limited time offers from Aruba's best local businesses</div>
-    <div class="filters">
-      <button class="filter-btn active" onclick="filterDeals('all',this)">All Deals</button>
-      <button class="filter-btn" onclick="filterDeals('Restaurant',this)">🍽️ Restaurants</button>
-      <button class="filter-btn" onclick="filterDeals('Water Sports',this)">🤿 Water Sports</button>
-      <button class="filter-btn" onclick="filterDeals('Spa',this)">💆 Spa</button>
-      <button class="filter-btn" onclick="filterDeals('Tours',this)">🌅 Tours</button>
-    </div>
-    <div class="deals-grid" id="dealsGrid"></div>
+  <div class="how-strip">
+    <div class="how-step"><div class="hs-num">1</div><div class="hs-text"><strong>Browse & Book</strong>Pick a deal & time slot</div></div>
+    <div class="how-step"><div class="hs-num">2</div><div class="hs-text"><strong>Get WhatsApp QR</strong>Voucher sent instantly</div></div>
+    <div class="how-step"><div class="hs-num">3</div><div class="hs-text"><strong>Show Up</strong>Present QR at business</div></div>
+    <div class="how-step"><div class="hs-num">4</div><div class="hs-text"><strong>Pay on Arrival</strong>Discounted price, cash/card</div></div>
+    <div class="how-step"><div class="hs-num">5</div><div class="hs-text"><strong>Business Scans</strong>QR marked redeemed</div></div>
   </div>
 </div>
 
-<!-- ══════════ LOGIN PAGE ══════════ -->
+<!-- ═══ DEALS PAGE ═══ -->
+<div id="page-deals" class="page">
+  <div class="pw">
+    <div class="ptitle">Today's Deals 🌴</div>
+    <div class="psub">Book your slot — pay the discounted price when you arrive. No online payment needed.</div>
+    <div class="filters">
+      <button class="fb active" onclick="filterDeals('all',this)">All Deals</button>
+      <button class="fb" onclick="filterDeals('Restaurant',this)">🍽️ Restaurants</button>
+      <button class="fb" onclick="filterDeals('Water Sports',this)">🤿 Water Sports</button>
+      <button class="fb" onclick="filterDeals('Spa',this)">💆 Spa</button>
+      <button class="fb" onclick="filterDeals('Tours',this)">🌅 Tours</button>
+      <button class="fb" onclick="filterDeals('Sports',this)">⚽ Sports</button>
+    </div>
+    <div class="dgrid" id="dealsGrid"></div>
+  </div>
+</div>
+
+<!-- ═══ LOGIN ═══ -->
 <div id="page-login" class="page">
   <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">Aruba<span>Deals</span></div>
-      <div class="auth-sub">Business Portal — Manage your deals</div>
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" id="loginEmail" type="email" placeholder="you@yourbusiness.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <input class="form-input" id="loginPassword" type="password" placeholder="••••••••">
-        <div class="form-error" id="loginError">Invalid email or password. Try: demo@aruba.com / demo123</div>
-      </div>
-      <button class="form-btn" onclick="handleLogin()">Sign In to Dashboard</button>
-      <div class="auth-switch">Don't have an account? <a onclick="showPage('signup')">Register your business</a></div>
-      <div style="text-align:center;margin-top:16px;padding:12px;background:var(--light);border-radius:12px;font-size:0.78rem;color:#718096;">
-        🔑 Demo login: <strong>demo@aruba.com</strong> / <strong>demo123</strong>
-      </div>
+    <div class="acard">
+      <div class="alogo">Aruba<span>Deals</span></div>
+      <div class="asub">Business Portal — Manage your deals & track redemptions</div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="lemail" type="email" placeholder="you@business.com"></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" id="lpass" type="password" placeholder="••••••••"><div class="ferr" id="lerr">Wrong email or password.</div></div>
+      <button class="fbtn" onclick="doLogin()">Sign In to Dashboard</button>
+      <div class="aswitch">No account? <a onclick="showPage('signup')">Register your business</a></div>
+      <div class="demo-hint">🔑 Demo: <strong>demo@aruba.com</strong> / <strong>demo123</strong></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ SIGNUP PAGE ══════════ -->
+<!-- ═══ SIGNUP ═══ -->
 <div id="page-signup" class="page">
   <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">Aruba<span>Deals</span></div>
-      <div class="auth-sub">List your business — it's free to join</div>
-      <div class="form-group">
-        <label class="form-label">Business Name</label>
-        <input class="form-input" id="signupBiz" type="text" placeholder="e.g. Palm Beach Snorkeling Co.">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Category</label>
-        <select class="form-select" id="signupCat">
-          <option value="">Select category...</option>
-          <option>Restaurant</option>
-          <option>Water Sports</option>
-          <option>Spa</option>
-          <option>Tours</option>
-          <option>Hotel</option>
-          <option>Shopping</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" id="signupEmail" type="email" placeholder="you@yourbusiness.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <input class="form-input" id="signupPassword" type="password" placeholder="Min. 6 characters">
-        <div class="form-error" id="signupError"></div>
-      </div>
-      <button class="form-btn" onclick="handleSignup()">Create Business Account</button>
-      <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Sign in</a></div>
+    <div class="acard">
+      <div class="alogo">Aruba<span>Deals</span></div>
+      <div class="asub">Join free — you only pay commission on redeemed deals</div>
+      <div class="fg"><label class="fl">Business Name</label><input class="fi" id="sbiz" type="text" placeholder="e.g. Palm Beach Snorkeling Co."></div>
+      <div class="fg"><label class="fl">Category</label><select class="fsel" id="scat"><option value="">Select...</option><option>Restaurant</option><option>Water Sports</option><option>Spa</option><option>Tours</option><option>Hotel</option><option>Sports</option><option>Shopping</option></select></div>
+      <div class="fg"><label class="fl">Location in Aruba</label><input class="fi" id="sloc" type="text" placeholder="e.g. Palm Beach"></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="semail" type="email" placeholder="you@business.com"></div>
+      <div class="fg"><label class="fl">Password</label><input class="fi" id="spass" type="password" placeholder="Min. 6 characters"><div class="ferr" id="serr"></div></div>
+      <button class="fbtn" onclick="doSignup()">Create Free Account</button>
+      <div class="aswitch">Already registered? <a onclick="showPage('login')">Sign in</a></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ DASHBOARD PAGE ══════════ -->
+<!-- ═══ DASHBOARD ═══ -->
 <div id="page-dashboard" class="page">
-  <div class="dashboard">
-    <div class="dash-header">
-      <div>
-        <div class="dash-welcome">Welcome back, <span id="dashBizName">Business</span> 👋</div>
-        <div style="color:#718096;font-size:0.9rem;margin-top:4px">Manage your deals and track performance</div>
+  <div class="dash">
+    <div class="dh">
+      <div><div class="dwelcome">Welcome, <span id="dbizname">Business</span> 👋</div><div style="color:var(--mid);font-size:.88rem;margin-top:3px">Manage deals · Track redemptions · Get paid monthly</div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="add-btn" onclick="openAddDeal()">+ Add New Deal</button>
+        <button class="nb nb-o" onclick="showPage('scan')" style="font-size:.83rem">🔍 Scan Voucher</button>
       </div>
-      <button class="add-deal-btn" onclick="openAddDeal()">Add New Deal</button>
     </div>
-    <div class="dash-stats">
-      <div class="stat-card">
-        <div class="s-label">Active Deals</div>
-        <div class="s-val" id="statDeals">0</div>
-        <div class="s-sub">Live now</div>
+    <div class="dstats">
+      <div class="sc"><div class="sl">Active Deals</div><div class="sv" id="statD">0</div><div class="ss">Live now</div></div>
+      <div class="sc"><div class="sl">Redeemed</div><div class="sv" id="statR">0</div><div class="ss">This month</div></div>
+      <div class="sc"><div class="sl">Your Earnings</div><div class="sv" id="statE">AWG 0</div><div class="ss">After 25% commission</div></div>
+      <div class="sc"><div class="sl">Commission Due</div><div class="sv" id="statC">AWG 0</div><div class="ss">You owe ArubaDeals</div></div>
+    </div>
+
+    <div class="dsec">My Deals</div>
+    <div class="mdgrid" id="myDealsGrid"></div>
+
+    <!-- MONTHLY INVOICE -->
+    <div class="dsec">Monthly Commission Invoice</div>
+    <div class="invoice-section">
+      <div class="inv-header">
+        <div><div class="inv-title">📋 Invoice — <span id="invMonth"></span></div><div class="inv-month">Commission based on redeemed QR codes only</div></div>
+        <button class="dl-inv" onclick="downloadInvoice()">⬇ Download Invoice</button>
       </div>
-      <div class="stat-card">
-        <div class="s-label">Vouchers Sold</div>
-        <div class="s-val" id="statSold">0</div>
-        <div class="s-sub">This month</div>
+      <div id="invTable"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCAN PAGE ═══ -->
+<div id="page-scan" class="page">
+  <div class="scan-pg">
+    <div class="scan-title">🔍 Verify Customer Voucher</div>
+    <div class="scan-sub">Type in the customer's voucher code to verify and redeem their deal</div>
+    <div class="scan-iw">
+      <input class="scan-in" id="scanIn" placeholder="e.g. AD-7X3K-2026" oninput="this.value=this.value.toUpperCase()">
+      <button class="scan-vbtn" onclick="verifyVoucher()">Verify</button>
+    </div>
+    <div class="scan-res" id="scanRes"></div>
+    <button class="btn-s" style="margin-top:18px;width:100%;text-align:center" onclick="showPage('dashboard')">← Back to Dashboard</button>
+  </div>
+</div>
+
+<!-- ═══ DEAL DETAIL MODAL ═══ -->
+<div class="ov" id="dealOv">
+  <div class="modal">
+    <div class="mi">
+      <button class="mc" onclick="closeModal('dealOv')">✕</button>
+      <div class="mimg" id="mImg"></div>
+      <div class="mcat" id="mCat"></div>
+      <div class="mtitle" id="mTitle"></div>
+      <div class="mloc" id="mLoc"></div>
+      <div class="mdesc" id="mDesc"></div>
+      <div class="mpricing"><div class="mpnew" id="mNew"></div><div class="mpold" id="mOld"></div><div class="mpsave" id="mSave"></div></div>
+      <div class="mpay-note"><strong>💵 How payment works</strong>You book your slot now for free. When you arrive at the business, you pay the discounted price directly — cash or card. No online payment needed.</div>
+      <button class="mbuy" id="mBuy">📅 Book a Slot — Get QR Voucher</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BOOKING MODAL ═══ -->
+<div class="ov" id="bookOv">
+  <div class="modal">
+    <div class="mi">
+      <button class="mc" onclick="closeModal('bookOv')">✕</button>
+      <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:4px">Book Your Slot</div>
+      <div style="color:var(--mid);font-size:.85rem;margin-bottom:20px" id="bookDealName"></div>
+
+      <div class="booking-steps">
+        <div class="bstep active" id="bs1">1. Date & Time</div>
+        <div class="bstep" id="bs2">2. Your Details</div>
+        <div class="bstep" id="bs3">3. Confirm</div>
       </div>
-      <div class="stat-card">
-        <div class="s-label">Revenue</div>
-        <div class="s-val" id="statRev">$0</div>
-        <div class="s-sub">After commission</div>
+
+      <!-- Step 1: Date/Time -->
+      <div class="bpanel active" id="bp1">
+        <div id="expiryTypeWrap">
+          <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px">Deal Type</div>
+          <div class="slot-type-tabs" id="slotTypeTabs">
+            <button class="stt active" id="sttFlex" onclick="setSlotType('flexible')">🗓️ Flexible (choose date)</button>
+            <button class="stt" id="sttFixed" onclick="setSlotType('fixed')">📌 Fixed Date</button>
+          </div>
+        </div>
+        <div id="flexDateWrap">
+          <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px;margin-top:14px">Select Date</div>
+          <div class="date-grid" id="dateGrid"></div>
+          <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px">Select Time</div>
+          <div class="time-grid" id="timeGrid"></div>
+        </div>
+        <div id="fixedDateWrap" style="display:none">
+          <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px;margin-top:14px">Fixed Booking Date</div>
+          <div id="fixedDateDisplay" style="background:var(--light);padding:14px;border-radius:12px;font-weight:600;font-size:.9rem;margin-bottom:14px"></div>
+          <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px">Select Time Slot</div>
+          <div class="time-grid" id="fixedTimeGrid"></div>
+        </div>
+        <button class="mbuy" style="margin-top:4px" onclick="goStep(2)">Next →</button>
       </div>
-      <div class="stat-card">
-        <div class="s-label">Scan Vouchers</div>
-        <div style="margin-top:8px">
-          <button class="btn-primary" style="width:100%;padding:10px;font-size:0.82rem" onclick="showPage('scan')">🔍 Open Scanner</button>
+
+      <!-- Step 2: WhatsApp -->
+      <div class="bpanel" id="bp2">
+        <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px">Your Name</div>
+        <div class="fg"><input class="fi" id="bookName" placeholder="Full name"></div>
+        <div style="font-size:.8rem;font-weight:600;color:#4a5568;margin-bottom:8px">WhatsApp Number</div>
+        <div class="wa-wrap">
+          <div class="wa-prefix">+297</div>
+          <input class="wa-input" id="bookWA" type="tel" placeholder="5XX XXXX" maxlength="8">
+        </div>
+        <div class="form-note" style="margin-top:12px">📱 Your QR voucher will be sent to this WhatsApp number. You'll also get a reminder the day before your booking.</div>
+        <div class="ferr" id="bookErr" style="margin:8px 0"></div>
+        <div style="display:flex;gap:10px;margin-top:6px">
+          <button class="btn-s" style="flex:1" onclick="goStep(1)">← Back</button>
+          <button class="btn-p" style="flex:2" onclick="goStep(3)">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Confirm -->
+      <div class="bpanel" id="bp3">
+        <div class="bsummary" id="bookSummary"></div>
+        <div class="mpay-note"><strong>💵 Payment on arrival</strong>You will pay the discounted price directly to the business when you arrive. No payment required now.</div>
+        <div class="ferr" id="confirmErr" style="margin-bottom:10px"></div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-s" style="flex:1" onclick="goStep(2)">← Back</button>
+          <button class="btn-p" style="flex:2" onclick="confirmBooking()">✅ Confirm & Get QR</button>
         </div>
       </div>
     </div>
-    <div class="dash-section-title">My Deals</div>
-    <div class="my-deals-grid" id="myDealsGrid">
-      <div class="empty-state">
-        <div class="es-icon">📭</div>
-        <p>No deals yet. Add your first deal!</p>
-      </div>
+  </div>
+</div>
+
+<!-- ═══ VOUCHER MODAL ═══ -->
+<div class="voucher-ov" id="voucherOv">
+  <div class="vcard">
+    <div class="vtop">
+      <div class="vlogo">Aruba<span>Deals</span></div>
+      <div class="vsub">Your Booking Voucher</div>
+    </div>
+    <div class="vdivider"><div class="vdashes"></div></div>
+    <div class="vbody">
+      <div class="vdname" id="vDName"></div>
+      <div class="vbiz" id="vBiz"></div>
+      <div class="vslot" id="vSlot"></div>
+      <div class="vprice" id="vPrice"></div>
+      <div class="vorig" id="vOrig"></div>
+      <div class="vqr" id="vQR"></div>
+      <div class="vcode" id="vCode"></div>
+      <div class="vvalid">✓ Valid — Show this QR at the business</div>
+      <div class="vwa" id="vWAMsg"></div>
+      <button class="vclose" onclick="closeVoucher()">Done — Screenshot to Save 📸</button>
+      <div style="font-size:.72rem;color:#a0aec0;margin-top:10px;line-height:1.6">Show the QR code at the business. Pay the discounted price on arrival. Cash or card accepted.</div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ SCAN PAGE ══════════ -->
-<div id="page-scan" class="page">
-  <div class="scan-page">
-    <div class="scan-title">🔍 Verify Voucher</div>
-    <div class="scan-sub">Enter the voucher code to verify and redeem a customer's deal</div>
-    <div class="scan-input-wrap">
-      <input class="scan-input" id="scanInput" placeholder="e.g. AD-2025-7X3K" oninput="this.value=this.value.toUpperCase()">
-      <button class="scan-btn" onclick="verifyVoucher()">Verify</button>
-    </div>
-    <div class="scan-result" id="scanResult"></div>
-    <button class="btn-secondary" style="margin-top:20px;width:100%;text-align:center" onclick="showPage('dashboard')">← Back to Dashboard</button>
-  </div>
-</div>
+<!-- ═══ ADD DEAL MODAL ═══ -->
+<div class="adm" id="addDealModal">
+  <div class="admi">
+    <button class="mc" onclick="closeModal('addDealModal')">✕</button>
+    <div class="adm-title">Post a New Deal</div>
+    <div class="adm-sub">Your deal goes live immediately on ArubaDeals</div>
 
-<!-- ══════════ DEAL MODAL ══════════ -->
-<div class="modal-overlay" id="dealModal">
-  <div class="modal">
-    <div class="modal-inner">
-      <button class="modal-close" onclick="closeDealModal()">✕</button>
-      <div class="modal-img" id="modalImg"></div>
-      <div class="modal-cat" id="modalCat"></div>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-loc" id="modalLoc"></div>
-      <div class="modal-desc" id="modalDesc"></div>
-      <div class="modal-pricing">
-        <div class="mp-new" id="modalPriceNew"></div>
-        <div class="mp-old" id="modalPriceOld"></div>
-        <div class="mp-save" id="modalSave"></div>
-      </div>
-      <button class="modal-buy" id="modalBuyBtn">🎉 Claim This Deal — Get QR Voucher</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ QR VOUCHER MODAL ══════════ -->
-<div class="voucher-overlay" id="voucherModal">
-  <div class="voucher-card">
-    <div class="voucher-top">
-      <div class="voucher-logo">Aruba<span>Deals</span></div>
-      <div class="voucher-title">Your Deal Voucher</div>
-    </div>
-    <div class="voucher-divider"><div class="voucher-dashes"></div></div>
-    <div class="voucher-body">
-      <div class="voucher-deal-name" id="vDealName"></div>
-      <div class="voucher-biz" id="vBizName"></div>
-      <div class="voucher-price" id="vPrice"></div>
-      <div class="voucher-orig" id="vOrig"></div>
-      <div class="voucher-qr" id="vQRCode"></div>
-      <div class="voucher-code" id="vCode"></div>
-      <div class="voucher-valid">✓ Valid — Show this to the business</div>
-      <button class="voucher-close" onclick="closeVoucher()">Done — Save Screenshot</button>
-      <div class="voucher-instructions">📸 Screenshot this voucher to save it. Show the QR code at the business to redeem your deal.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ADD DEAL MODAL -->
-<div class="add-deal-modal" id="addDealModal">
-  <div class="add-modal-inner">
-    <button class="modal-close" onclick="closeAddDeal()">✕</button>
-    <div class="add-modal-title">Post a New Deal</div>
-    <div class="add-modal-sub">Your deal will go live on the platform immediately</div>
-
-    <div class="form-group">
-      <label class="form-label">Deal Photo</label>
-      <label class="upload-area" id="uploadArea" for="dealImageInput">
-        <input type="file" id="dealImageInput" accept="image/*" onchange="previewImage(event)">
-        <div class="upload-icon">📸</div>
-        <div class="upload-text">Click to upload a photo</div>
-        <div class="upload-hint">JPG, PNG — Recommended 800×500px</div>
+    <div class="fg">
+      <label class="fl">Deal Photo</label>
+      <label class="upload-area" id="upArea" for="dealImg">
+        <input type="file" id="dealImg" accept="image/*" onchange="previewImg(event)">
+        <div class="up-icon">📸</div>
+        <div class="up-text">Click to upload photo</div>
+        <div class="up-hint">JPG or PNG recommended</div>
       </label>
-      <img id="imagePreview" class="upload-preview" alt="Preview">
+      <img id="imgPrev" class="up-preview">
     </div>
 
-    <div class="form-group">
-      <label class="form-label">Deal Title</label>
-      <input class="form-input" id="dealTitle" placeholder="e.g. 3-Course Dinner for 2">
+    <div class="fg"><label class="fl">Deal Title</label><input class="fi" id="dTitle" placeholder="e.g. 3-Course Dinner for 2"></div>
+    <div class="fg"><label class="fl">Category</label><select class="fsel" id="dCat"><option>Restaurant</option><option>Water Sports</option><option>Spa</option><option>Tours</option><option>Hotel</option><option>Sports</option><option>Shopping</option></select></div>
+    <div class="fg"><label class="fl">Description (what's included)</label><input class="fi" id="dDesc" placeholder="e.g. Includes appetizer, main, dessert & welcome drink"></div>
+    <div class="fg"><label class="fl">Location</label><input class="fi" id="dLoc" placeholder="e.g. Palm Beach, Aruba"></div>
+
+    <div class="frow">
+      <div class="fg"><label class="fl">Original Price (AWG $)</label><input class="fi" id="dOrig" type="number" placeholder="120"></div>
+      <div class="fg"><label class="fl">Deal Price (AWG $)</label><input class="fi" id="dNew" type="number" placeholder="49"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Max Vouchers Per Day</label><input class="fi" id="dMaxDay" type="number" placeholder="10"></div>
+      <div class="fg"><label class="fl">Total Vouchers Available</label><input class="fi" id="dTotal" type="number" placeholder="100"></div>
     </div>
 
-    <div class="form-group">
-      <label class="form-label">Category</label>
-      <select class="form-select" id="dealCategory">
-        <option>Restaurant</option>
-        <option>Water Sports</option>
-        <option>Spa</option>
-        <option>Tours</option>
-        <option>Hotel</option>
-        <option>Shopping</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Description</label>
-      <input class="form-input" id="dealDesc" placeholder="What's included in this deal?">
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Location</label>
-      <input class="form-input" id="dealLocation" placeholder="e.g. Palm Beach, Aruba">
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Original Price ($)</label>
-        <input class="form-input" id="dealOrigPrice" type="number" placeholder="120">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Deal Price ($)</label>
-        <input class="form-input" id="dealNewPrice" type="number" placeholder="49">
+    <div class="fg">
+      <label class="fl">Voucher Validity</label>
+      <div class="expiry-tabs">
+        <button class="et active" id="etFlex" onclick="setExpiryType('flexible')">🗓️ Flexible (customer picks date)</button>
+        <button class="et" id="etFixed" onclick="setExpiryType('fixed')">📌 Fixed Date</button>
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Total Vouchers Available</label>
-        <input class="form-input" id="dealTotal" type="number" placeholder="100">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Expires In</label>
-        <select class="form-select" id="dealExpiry">
-          <option>24 hours</option>
-          <option>3 days</option>
-          <option>7 days</option>
-          <option>30 days</option>
-        </select>
-      </div>
+    <div id="flexExpiryWrap" class="fg">
+      <label class="fl">Valid For (days after booking)</label>
+      <select class="fsel" id="dDays"><option value="3">3 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select>
+    </div>
+    <div id="fixedExpiryWrap" class="fg" style="display:none">
+      <label class="fl">Fixed Event Date</label>
+      <input class="fi" id="dFixedDate" type="date">
+      <div class="form-note" style="margin-top:8px">E.g. for a sports match, concert, or specific event. Voucher is valid only for this date.</div>
     </div>
 
-    <div class="form-error" id="dealError" style="margin-bottom:12px"></div>
-    <button class="form-btn" onclick="publishDeal()">🚀 Publish Deal Live</button>
+    <div class="fg">
+      <label class="fl">Available Time Slots (comma separated)</label>
+      <input class="fi" id="dSlots" placeholder="e.g. 12:00, 14:00, 17:00, 19:00">
+    </div>
+
+    <div class="ferr" id="dealErr" style="margin-bottom:10px"></div>
+    <button class="fbtn" onclick="publishDeal()">🚀 Publish Deal Live</button>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── STATE ───────────────────────────────────────────────
+// ─── STATE ─────────────────────────────────────────────────
 let currentUser = null;
-let currentDeal = null;
-let redeemedCodes = new Set();
+let activeDeal = null;
+let booking = { date:null, time:null, slotType:'flexible' };
+let imgData = null;
+let expiryType = 'flexible';
+let voucherCodes = {};
 
-const DEMO_USER = { email:'demo@aruba.com', password:'demo123', bizName:'Palm Beach Co.', category:'Water Sports' };
+const DEMO = { email:'demo@aruba.com', password:'demo123', bizName:'Blue Wave Tours', category:'Water Sports', location:'Palm Beach' };
+const COMMISSION = 0.25;
 
-// Deals database (seeded + user-added)
+const catEmoji = { Restaurant:'🍽️','Water Sports':'🤿', Spa:'💆', Tours:'🌅', Hotel:'🏨', Sports:'⚽', Shopping:'🛍️' };
+const catBg = { Restaurant:'linear-gradient(135deg,#F5A623,#d4700a)','Water Sports':'linear-gradient(135deg,#0077B6,#023E8A)', Spa:'linear-gradient(135deg,#00C49A,#007a60)', Tours:'linear-gradient(135deg,#FF5558,#c0392b)', Hotel:'linear-gradient(135deg,#764ba2,#4a2c7a)', Sports:'linear-gradient(135deg,#2ecc71,#16a085)', Shopping:'linear-gradient(135deg,#fd79a8,#c0392b)' };
+
 let allDeals = [
-  { id:1, title:'Full Day Snorkeling & Catamaran', category:'Water Sports', location:'Palm Beach, Aruba', desc:'Enjoy a full day aboard our luxury catamaran. Includes snorkeling gear, lunch, and open bar. Perfect for families and couples.', emoji:'🤿', bg:'linear-gradient(135deg,#0077B6,#023E8A)', origPrice:120, newPrice:49, total:100, sold:72, biz:'Blue Water Tours', bizId:0, expiry:'4h 23m', img:null },
-  { id:2, title:'3-Course Dinner for 2', category:'Restaurant', location:'Noord, Aruba', desc:'Enjoy a romantic 3-course dinner at one of Aruba\'s most beloved restaurants. Includes appetizer, main, dessert & welcome drink.', emoji:'🍽️', bg:'linear-gradient(135deg,#F5A623,#e07b00)', origPrice:98, newPrice:59, total:100, sold:45, biz:'Gasparito Restaurant', bizId:0, expiry:'11h 05m', img:null },
-  { id:3, title:'90-Min Couples Massage & Facial', category:'Spa', location:'Eagle Beach, Aruba', desc:'The ultimate relaxation experience. A 90-minute couples massage followed by a rejuvenating facial. Pure bliss on the island.', emoji:'💆', bg:'linear-gradient(135deg,#00C49A,#007a60)', origPrice:200, newPrice:89, total:100, sold:82, biz:'Serenity Spa Aruba', bizId:0, expiry:'1d 3h', img:null },
-  { id:4, title:'Sunset Jeep Safari Tour', category:'Tours', location:'Arikok National Park', desc:'Explore Aruba\'s rugged interior in a 4x4 jeep. Visit natural pools, ancient caves, and catch the most stunning sunset on the island.', emoji:'🌅', bg:'linear-gradient(135deg,#FF5F5F,#c0392b)', origPrice:80, newPrice:39, total:100, sold:30, biz:'Island Safari Aruba', bizId:0, expiry:'8h 44m', img:null },
+  { id:1, title:'Full Day Snorkeling & Catamaran', category:'Water Sports', location:'Palm Beach, Aruba', desc:'Enjoy a full day aboard our luxury catamaran. Snorkeling gear, buffet lunch, and open bar included. Perfect for families and couples.', origPrice:120, newPrice:49, maxDay:12, total:100, sold:72, biz:'Blue Wave Tours', bizId:'demo@aruba.com', expiryType:'flexible', days:7, fixedDate:null, slots:['09:00','13:00','16:00'], img:null },
+  { id:2, title:'3-Course Dinner for 2', category:'Restaurant', location:'Noord, Aruba', desc:'Romantic 3-course dinner at one of Aruba\'s most beloved restaurants. Appetizer, main, dessert & welcome drinks for two.', origPrice:98, newPrice:59, maxDay:8, total:100, sold:45, biz:'Gasparito Restaurant', bizId:null, expiryType:'flexible', days:5, fixedDate:null, slots:['18:00','19:30','21:00'], img:null },
+  { id:3, title:'90-Min Couples Massage', category:'Spa', location:'Eagle Beach, Aruba', desc:'The ultimate relaxation. 90-minute couples massage and rejuvenating facial. Pure bliss on the island.', origPrice:200, newPrice:89, maxDay:6, total:100, sold:82, biz:'Serenity Spa Aruba', bizId:null, expiryType:'flexible', days:7, fixedDate:null, slots:['10:00','12:00','14:00','16:00'], img:null },
+  { id:4, title:'Monday Night Football Match', category:'Sports', location:'Stadion Guillermo Trinidad', desc:'Watch the local league match live. Reserved seating included. Snacks and drinks available at the stadium.', origPrice:30, newPrice:15, maxDay:50, total:200, sold:140, biz:'Aruba Football League', bizId:null, expiryType:'fixed', days:null, fixedDate:'2026-03-16', slots:['19:00'], img:null },
+  { id:5, title:'Sunset Jeep Safari Tour', category:'Tours', location:'Arikok National Park', desc:'Explore Aruba\'s rugged interior in a 4x4 jeep. Natural pools, ancient caves, and the most stunning sunset on the island.', origPrice:80, newPrice:39, maxDay:10, total:100, sold:30, biz:'Island Safari Aruba', bizId:null, expiryType:'flexible', days:7, fixedDate:null, slots:['08:00','15:00'], img:null },
 ];
 
-// ─── NAVIGATION ──────────────────────────────────────────
+// ─── NAV & PAGES ────────────────────────────────────────────
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
@@ -644,367 +638,431 @@ function showPage(name) {
   if (name === 'dashboard') renderDashboard();
 }
 
-// ─── AUTH ─────────────────────────────────────────────────
-function handleLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPassword').value;
-  const err = document.getElementById('loginError');
-
-  // Check seeded demo user
-  if (email === DEMO_USER.email && pass === DEMO_USER.password) {
-    loginSuccess({ email, bizName: DEMO_USER.bizName, category: DEMO_USER.category });
-    return;
-  }
-  // Check registered users
-  const users = JSON.parse(localStorage.getItem('adUsers') || '[]');
-  const user = users.find(u => u.email === email && u.password === pass);
-  if (user) { loginSuccess(user); return; }
-
+// ─── AUTH ───────────────────────────────────────────────────
+function doLogin() {
+  const email = document.getElementById('lemail').value.trim();
+  const pass = document.getElementById('lpass').value;
+  const err = document.getElementById('lerr');
+  if (email === DEMO.email && pass === DEMO.password) { loginOk(DEMO); return; }
+  const users = JSON.parse(localStorage.getItem('adUsers')||'[]');
+  const u = users.find(x => x.email===email && x.password===pass);
+  if (u) { loginOk(u); return; }
   err.classList.add('show');
 }
 
-function handleSignup() {
-  const biz = document.getElementById('signupBiz').value.trim();
-  const cat = document.getElementById('signupCat').value;
-  const email = document.getElementById('signupEmail').value.trim();
-  const pass = document.getElementById('signupPassword').value;
-  const err = document.getElementById('signupError');
-
-  if (!biz || !cat || !email || !pass) { err.textContent='Please fill in all fields.'; err.classList.add('show'); return; }
-  if (pass.length < 6) { err.textContent='Password must be at least 6 characters.'; err.classList.add('show'); return; }
-
-  const users = JSON.parse(localStorage.getItem('adUsers') || '[]');
-  if (users.find(u => u.email === email)) { err.textContent='Email already registered.'; err.classList.add('show'); return; }
-
-  const newUser = { email, password:pass, bizName:biz, category:cat };
-  users.push(newUser);
-  localStorage.setItem('adUsers', JSON.stringify(users));
-  loginSuccess(newUser);
+function doSignup() {
+  const biz=document.getElementById('sbiz').value.trim();
+  const cat=document.getElementById('scat').value;
+  const loc=document.getElementById('sloc').value.trim();
+  const email=document.getElementById('semail').value.trim();
+  const pass=document.getElementById('spass').value;
+  const err=document.getElementById('serr');
+  if (!biz||!cat||!loc||!email||!pass){err.textContent='Please fill in all fields.';err.classList.add('show');return;}
+  if (pass.length<6){err.textContent='Password min. 6 characters.';err.classList.add('show');return;}
+  const users=JSON.parse(localStorage.getItem('adUsers')||'[]');
+  if (users.find(u=>u.email===email)){err.textContent='Email already registered.';err.classList.add('show');return;}
+  const nu={email,password:pass,bizName:biz,category:cat,location:loc};
+  users.push(nu); localStorage.setItem('adUsers',JSON.stringify(users));
+  loginOk(nu);
 }
 
-function loginSuccess(user) {
-  currentUser = user;
+function loginOk(u) {
+  currentUser = u;
   document.getElementById('navUser').classList.add('show');
-  document.getElementById('navAvatar').textContent = user.bizName.charAt(0).toUpperCase();
-  document.getElementById('navUserName').textContent = user.bizName;
-  document.getElementById('navLoginBtn').style.display = 'none';
-  document.getElementById('navSignupBtn').style.display = 'none';
-  document.getElementById('navDashBtn').style.display = 'block';
+  document.getElementById('navAv').textContent = u.bizName.charAt(0).toUpperCase();
+  document.getElementById('navUN').textContent = u.bizName;
+  document.getElementById('navLogin').style.display='none';
+  document.getElementById('navSignup').style.display='none';
+  document.getElementById('navDash').style.display='block';
   showPage('dashboard');
-  showToast('Welcome back, ' + user.bizName + '! 🎉');
+  toast('Welcome back, '+u.bizName+' 🎉');
 }
 
 function logout() {
-  currentUser = null;
+  currentUser=null;
   document.getElementById('navUser').classList.remove('show');
-  document.getElementById('navLoginBtn').style.display = 'block';
-  document.getElementById('navSignupBtn').style.display = 'block';
-  document.getElementById('navDashBtn').style.display = 'none';
-  showPage('home');
-  showToast('Signed out successfully');
+  document.getElementById('navLogin').style.display='block';
+  document.getElementById('navSignup').style.display='block';
+  document.getElementById('navDash').style.display='none';
+  showPage('home'); toast('Signed out');
 }
 
-// ─── DEALS ───────────────────────────────────────────────
-const catEmojis = { Restaurant:'🍽️', 'Water Sports':'🤿', Spa:'💆', Tours:'🌅', Hotel:'🏨', Shopping:'🛍️' };
-const catBgs = {
-  Restaurant:'linear-gradient(135deg,#F5A623,#e07b00)',
-  'Water Sports':'linear-gradient(135deg,#0077B6,#023E8A)',
-  Spa:'linear-gradient(135deg,#00C49A,#007a60)',
-  Tours:'linear-gradient(135deg,#FF5F5F,#c0392b)',
-  Hotel:'linear-gradient(135deg,#764ba2,#4a2c7a)',
-  Shopping:'linear-gradient(135deg,#fd79a8,#c0392b)',
-};
-
+// ─── DEALS ──────────────────────────────────────────────────
 function renderDeals(deals) {
-  const grid = document.getElementById('dealsGrid');
-  if (!deals.length) { grid.innerHTML = '<div class="empty-state"><div class="es-icon">🏝️</div><p>No deals in this category yet.</p></div>'; return; }
-  grid.innerHTML = deals.map(d => {
-    const pct = Math.round((1 - d.newPrice/d.origPrice)*100);
-    const progressPct = Math.round((d.sold/d.total)*100);
-    const imgContent = d.img
-      ? `<img src="${d.img}" alt="${d.title}"><div class="deal-disc">-${pct}%</div>`
-      : `<span class="emoji">${d.emoji || catEmojis[d.category] || '🎟️'}</span><div class="deal-disc">-${pct}%</div>`;
-    return `
-    <div class="deal-card" onclick="openDeal(${d.id})">
-      <div class="deal-img" style="background:${d.img?'#f0f4f8':d.bg}">
-        ${imgContent}
-        <div class="deal-timer-badge"><div class="tdot"></div>${d.expiry} left</div>
-      </div>
-      <div class="deal-body">
-        <div class="deal-cat">${d.category}</div>
-        <div class="deal-name">${d.title}</div>
-        <div class="deal-loc">📍 ${d.location}</div>
-        <div class="deal-pricing">
-          <span class="d-new">$${d.newPrice}</span>
-          <span class="d-old">$${d.origPrice}</span>
-          <span class="d-pct">Save ${pct}%</span>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-bg"><div class="progress-bar" style="width:${progressPct}%"></div></div>
-          <div class="progress-lbl">${d.sold} of ${d.total} claimed</div>
-        </div>
-        <button class="claim-btn">Claim Deal</button>
-      </div>
-    </div>`;
+  const g = document.getElementById('dealsGrid');
+  if (!deals.length){g.innerHTML='<div class="empty-st"><div class="ei">🏝️</div><p>No deals here yet.</p></div>';return;}
+  g.innerHTML = deals.map(d => {
+    const pct = Math.round((1-d.newPrice/d.origPrice)*100);
+    const prog = Math.round((d.sold/d.total)*100);
+    const expLabel = d.expiryType==='fixed' ? formatDate(d.fixedDate) : d.days+'d window';
+    const imgHtml = d.img ? `<img src="${d.img}">` : `<span class="dem">${catEmoji[d.category]||'🎟️'}</span>`;
+    return `<div class="dcard" onclick="openDeal(${d.id})">
+      <div class="dimg" style="background:${d.img?'#eef':catBg[d.category]}">${imgHtml}<div class="ddis">-${pct}%</div><div class="dtbadge"><div class="tdot"></div>${expLabel}</div></div>
+      <div class="dbody">
+        <div class="dcat">${d.category}</div>
+        <div class="dname">${d.title}</div>
+        <div class="dloc">📍 ${d.location}</div>
+        <div class="dpricing"><span class="dnew">AWG $${d.newPrice}</span><span class="dold">$${d.origPrice}</span><span class="dsave">Save ${pct}%</span></div>
+        <div class="dpbar"><div class="dpfill" style="width:${prog}%"></div></div>
+        <div class="dplbl">${d.sold} of ${d.total} claimed</div>
+        <button class="dclaim">Book a Slot — Free</button>
+      </div></div>`;
   }).join('');
 }
 
-function filterDeals(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function filterDeals(cat,btn) {
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const filtered = cat === 'all' ? allDeals : allDeals.filter(d => d.category === cat);
-  renderDeals(filtered);
+  renderDeals(cat==='all'?allDeals:allDeals.filter(d=>d.category===cat));
 }
 
 function openDeal(id) {
-  const d = allDeals.find(x => x.id === id);
-  if (!d) return;
-  currentDeal = d;
-  const pct = Math.round((1-d.newPrice/d.origPrice)*100);
-  const imgEl = document.getElementById('modalImg');
-  imgEl.style.background = d.img ? '#f0f4f8' : d.bg;
-  imgEl.innerHTML = d.img
-    ? `<img src="${d.img}" style="width:100%;height:100%;object-fit:cover;border-radius:16px">`
-    : `<span class="m-emoji">${d.emoji || catEmojis[d.category] || '🎟️'}</span>`;
-  document.getElementById('modalCat').textContent = d.category;
-  document.getElementById('modalTitle').textContent = d.title;
-  document.getElementById('modalLoc').textContent = '📍 ' + d.location + ' · ' + d.biz;
-  document.getElementById('modalDesc').textContent = d.desc;
-  document.getElementById('modalPriceNew').textContent = '$' + d.newPrice;
-  document.getElementById('modalPriceOld').textContent = '$' + d.origPrice;
-  document.getElementById('modalSave').textContent = 'Save ' + pct + '%';
-  document.getElementById('modalBuyBtn').onclick = () => { closeDealModal(); generateVoucher(d); };
-  document.getElementById('dealModal').classList.add('open');
+  const d = allDeals.find(x=>x.id===id);
+  if(!d)return;
+  activeDeal=d;
+  const pct=Math.round((1-d.newPrice/d.origPrice)*100);
+  const mi=document.getElementById('mImg');
+  mi.style.background=d.img?'#f0f4f8':catBg[d.category];
+  mi.innerHTML=d.img?`<img src="${d.img}" style="width:100%;height:100%;object-fit:cover;border-radius:14px">`:`<span class="mem">${catEmoji[d.category]||'🎟️'}</span>`;
+  document.getElementById('mCat').textContent=d.category;
+  document.getElementById('mTitle').textContent=d.title;
+  document.getElementById('mLoc').textContent='📍 '+d.location+' · '+d.biz;
+  document.getElementById('mDesc').textContent=d.desc;
+  document.getElementById('mNew').textContent='AWG $'+d.newPrice;
+  document.getElementById('mOld').textContent='$'+d.origPrice;
+  document.getElementById('mSave').textContent='Save '+pct+'%';
+  document.getElementById('mBuy').onclick=()=>{ closeModal('dealOv'); openBooking(d); };
+  document.getElementById('dealOv').classList.add('open');
 }
 
-function closeDealModal() { document.getElementById('dealModal').classList.remove('open'); }
+// ─── BOOKING FLOW ───────────────────────────────────────────
+function openBooking(d) {
+  booking = { date:null, time:null, slotType: d.expiryType==='fixed'?'fixed':'flexible' };
+  document.getElementById('bookDealName').textContent = d.title + ' — ' + d.biz;
+  document.getElementById('bookName').value='';
+  document.getElementById('bookWA').value='';
+  document.getElementById('bookErr').classList.remove('show');
 
-// ─── QR VOUCHER ───────────────────────────────────────────
-function generateVoucher(deal) {
-  const code = 'AD-' + new Date().getFullYear() + '-' + Math.random().toString(36).substring(2,6).toUpperCase();
-  redeemedCodes.set ? null : (window.voucherCodes = window.voucherCodes || {});
+  // Set slot type tabs visibility
+  if (d.expiryType==='fixed') {
+    document.getElementById('sttFixed').classList.add('active');
+    document.getElementById('sttFlex').classList.remove('active');
+    setSlotType('fixed');
+  } else {
+    document.getElementById('sttFlex').classList.add('active');
+    document.getElementById('sttFixed').classList.remove('active');
+    setSlotType('flexible');
+  }
 
-  // Store voucher
-  if (!window.voucherCodes) window.voucherCodes = {};
-  window.voucherCodes[code] = { deal: deal.title, biz: deal.biz, price: deal.newPrice, orig: deal.origPrice, redeemed: false };
+  // Build date grid (next 7 days)
+  const dg=document.getElementById('dateGrid');
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  dg.innerHTML='';
+  for(let i=0;i<7;i++){
+    const dt=new Date(); dt.setDate(dt.getDate()+i);
+    const el=document.createElement('div');
+    el.className='date-opt';
+    el.innerHTML=`<div class="do-day">${i===0?'Today':days[dt.getDay()]}</div><div class="do-date">${dt.getDate()} ${months[dt.getMonth()]}</div>`;
+    el.onclick=()=>{ document.querySelectorAll('.date-opt').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); booking.date=dt; };
+    dg.appendChild(el);
+  }
 
-  document.getElementById('vDealName').textContent = deal.title;
-  document.getElementById('vBizName').textContent = '📍 ' + deal.biz + ' · ' + deal.location;
-  document.getElementById('vPrice').textContent = '$' + deal.newPrice;
-  document.getElementById('vOrig').textContent = 'Original price: $' + deal.origPrice;
-  document.getElementById('vCode').textContent = 'Code: ' + code;
+  // Build time grid
+  buildTimeGrid('timeGrid', d.slots);
 
-  const qrDiv = document.getElementById('vQRCode');
-  qrDiv.innerHTML = '';
-  new QRCode(qrDiv, {
-    text: code,
-    width: 160, height: 160,
-    colorDark:'#0D1B2A', colorLight:'#ffffff',
-    correctLevel: QRCode.CorrectLevel.H
+  // Fixed date
+  if (d.expiryType==='fixed') {
+    document.getElementById('fixedDateDisplay').textContent = '📅 ' + formatDate(d.fixedDate);
+    buildTimeGrid('fixedTimeGrid', d.slots);
+  }
+
+  goStep(1);
+  document.getElementById('bookOv').classList.add('open');
+}
+
+function buildTimeGrid(gridId, slots) {
+  const tg=document.getElementById(gridId);
+  tg.innerHTML='';
+  (slots||['10:00','12:00','14:00']).forEach(t=>{
+    const el=document.createElement('div');
+    el.className='time-opt';
+    el.textContent=t;
+    el.onclick=()=>{ if(el.classList.contains('full'))return; document.querySelectorAll('#'+gridId+' .time-opt').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); booking.time=t; };
+    tg.appendChild(el);
+  });
+}
+
+function setSlotType(type) {
+  booking.slotType=type;
+  document.getElementById('flexDateWrap').style.display=type==='flexible'?'block':'none';
+  document.getElementById('fixedDateWrap').style.display=type==='fixed'?'block':'none';
+  if(type==='fixed'){
+    document.getElementById('sttFixed').classList.add('active');
+    document.getElementById('sttFlex').classList.remove('active');
+    if(activeDeal&&activeDeal.fixedDate) booking.date=new Date(activeDeal.fixedDate);
+  } else {
+    document.getElementById('sttFlex').classList.add('active');
+    document.getElementById('sttFixed').classList.remove('active');
+    booking.date=null;
+  }
+}
+
+function goStep(n) {
+  if(n===2) {
+    if(!booking.date||!booking.time){toast('⚠️ Please select a date and time slot');return;}
+  }
+  if(n===3) {
+    const name=document.getElementById('bookName').value.trim();
+    const wa=document.getElementById('bookWA').value.trim();
+    const err=document.getElementById('bookErr');
+    if(!name){err.textContent='Please enter your name.';err.classList.add('show');return;}
+    if(!wa||wa.length<7){err.textContent='Please enter a valid WhatsApp number.';err.classList.add('show');return;}
+    err.classList.remove('show');
+    // Build summary
+    const d=activeDeal;
+    const pct=Math.round((1-d.newPrice/d.origPrice)*100);
+    document.getElementById('bookSummary').innerHTML=`
+      <div class="bsum-row"><span class="label">Deal</span><span class="val">${d.title}</span></div>
+      <div class="bsum-row"><span class="label">Business</span><span class="val">${d.biz}</span></div>
+      <div class="bsum-row"><span class="label">Date & Time</span><span class="val">${formatDate2(booking.date)} at ${booking.time}</span></div>
+      <div class="bsum-row"><span class="label">Your Name</span><span class="val">${name}</span></div>
+      <div class="bsum-row"><span class="label">WhatsApp</span><span class="val">+297 ${wa}</span></div>
+      <div class="bsum-row total"><span class="label">Pay on arrival</span><span class="val">AWG $${d.newPrice} <span style="font-size:.75rem;font-weight:400;color:#a0aec0">was $${d.origPrice}</span></span></div>`;
+  }
+  [1,2,3].forEach(i=>{
+    document.getElementById('bp'+i).classList.toggle('active',i===n);
+    const bs=document.getElementById('bs'+i);
+    bs.classList.remove('active','done');
+    if(i===n) bs.classList.add('active');
+    else if(i<n) bs.classList.add('done');
+  });
+}
+
+function confirmBooking() {
+  const d=activeDeal;
+  const name=document.getElementById('bookName').value.trim();
+  const wa=document.getElementById('bookWA').value.trim();
+  const code='AD-'+Math.random().toString(36).substring(2,6).toUpperCase()+'-'+new Date().getFullYear();
+
+  voucherCodes[code]={
+    deal:d.title, biz:d.biz, bizId:d.bizId,
+    price:d.newPrice, orig:d.origPrice,
+    date:formatDate2(booking.date), time:booking.time,
+    name, wa:'+297 '+wa,
+    redeemed:false, createdAt:new Date().toISOString()
+  };
+
+  d.sold=Math.min(d.sold+1,d.total);
+  closeModal('bookOv');
+  showVoucher(voucherCodes[code], code);
+}
+
+function showVoucher(v, code) {
+  const pct=Math.round((1-v.price/v.orig)*100);
+  document.getElementById('vDName').textContent=v.deal;
+  document.getElementById('vBiz').textContent='📍 '+v.biz;
+  document.getElementById('vSlot').textContent='📅 '+v.date+' at '+v.time;
+  document.getElementById('vPrice').textContent='AWG $'+v.price;
+  document.getElementById('vOrig').textContent='Original: $'+v.orig+' — Save '+pct+'%';
+  document.getElementById('vCode').textContent='Code: '+code;
+  document.getElementById('vWAMsg').innerHTML=`<strong>📱 WhatsApp Confirmation</strong>A voucher confirmation has been sent to ${v.wa}. You'll get a reminder 24 hours before your booking.`;
+  const qrDiv=document.getElementById('vQR');
+  qrDiv.innerHTML='';
+  new QRCode(qrDiv,{text:code,width:150,height:150,colorDark:'#0D1B2A',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+  document.getElementById('voucherOv').classList.add('open');
+  toast('🎉 Booked! Voucher code: '+code);
+}
+
+function closeVoucher(){document.getElementById('voucherOv').classList.remove('open');}
+
+// ─── DASHBOARD ──────────────────────────────────────────────
+function renderDashboard() {
+  if(!currentUser)return;
+  document.getElementById('dbizname').textContent=currentUser.bizName;
+  const myDeals=allDeals.filter(d=>d.bizId===currentUser.email);
+  const redeemed=Object.values(voucherCodes).filter(v=>v.bizId===currentUser.email&&v.redeemed);
+  const commDue=redeemed.reduce((s,v)=>s+(v.price*COMMISSION),0);
+  const earnings=redeemed.reduce((s,v)=>s+(v.price*(1-COMMISSION)),0);
+  document.getElementById('statD').textContent=myDeals.length;
+  document.getElementById('statR').textContent=redeemed.length;
+  document.getElementById('statE').textContent='AWG $'+Math.round(earnings);
+  document.getElementById('statC').textContent='AWG $'+Math.round(commDue);
+
+  // My deals
+  const g=document.getElementById('myDealsGrid');
+  if(!myDeals.length){g.innerHTML='<div class="empty-st"><div class="ei">📭</div><p>No deals yet. Click "Add New Deal" to start!</p></div>';} 
+  else {
+    g.innerHTML=myDeals.map(d=>{
+      const pct=Math.round((1-d.newPrice/d.origPrice)*100);
+      return `<div class="mdc">
+        <div class="mdc-status s-live">● Live</div>
+        <span class="mdc-em">${catEmoji[d.category]||'🎟️'}</span>
+        <div class="mdc-name">${d.title}</div>
+        <div class="mdc-price">AWG $${d.newPrice} <span style="color:#a0aec0;text-decoration:line-through;font-weight:400">$${d.origPrice}</span> · ${pct}% off</div>
+        <div class="mdc-stats">Sold: <span>${d.sold}</span> &nbsp; Left: <span>${d.total-d.sold}</span></div>
+        <button class="mdc-del" onclick="deleteDeal(${d.id})">Remove Deal</button>
+      </div>`;
+    }).join('');
+  }
+
+  renderInvoice(myDeals, redeemed, commDue);
+}
+
+function renderInvoice(myDeals, redeemed, commDue) {
+  const now=new Date();
+  document.getElementById('invMonth').textContent=now.toLocaleString('default',{month:'long',year:'numeric'});
+  const t=document.getElementById('invTable');
+  if(!redeemed.length){t.innerHTML='<div class="empty-inv">No redeemed vouchers yet this month. Commission is only charged on redeemed deals.</div>';return;}
+
+  // Group by deal
+  const byDeal={};
+  redeemed.forEach(v=>{
+    if(!byDeal[v.deal]) byDeal[v.deal]={name:v.deal,count:0,revenue:0};
+    byDeal[v.deal].count++; byDeal[v.deal].revenue+=v.price;
+  });
+  const rows=Object.values(byDeal);
+  t.innerHTML=`<table class="inv-table">
+    <tr><th>Deal</th><th>Redeemed</th><th>Revenue</th><th>Commission (25%)</th></tr>
+    ${rows.map(r=>`<tr><td>${r.name}</td><td>${r.count}</td><td>AWG $${r.revenue}</td><td>AWG $${Math.round(r.revenue*COMMISSION)}</td></tr>`).join('')}
+    <tr class="inv-total-row"><td colspan="3">Total Commission Due to ArubaDeals</td><td>AWG $${Math.round(commDue)}</td></tr>
+  </table>
+  <div style="margin-top:14px;padding:12px 14px;background:rgba(0,119,182,.06);border:1px solid rgba(0,119,182,.14);border-radius:11px;font-size:.8rem;color:#2c5f8a;line-height:1.7">
+    💳 <strong>How to pay:</strong> Transfer AWG $${Math.round(commDue)} to ArubaDeals via local bank transfer before the end of the month. Account details will be sent to your registered email.
+  </div>`;
+}
+
+function downloadInvoice() {
+  toast('📄 Invoice downloaded (feature coming soon)');
+}
+
+function deleteDeal(id){
+  allDeals=allDeals.filter(d=>d.id!==id);
+  renderDashboard(); toast('Deal removed');
+}
+
+// ─── ADD DEAL ───────────────────────────────────────────────
+function openAddDeal(){document.getElementById('addDealModal').classList.add('open');}
+let addExpiryType='flexible';
+function setExpiryType(t){
+  addExpiryType=t;
+  document.getElementById('etFlex').classList.toggle('active',t==='flexible');
+  document.getElementById('etFixed').classList.toggle('active',t==='fixed');
+  document.getElementById('flexExpiryWrap').style.display=t==='flexible'?'block':'none';
+  document.getElementById('fixedExpiryWrap').style.display=t==='fixed'?'block':'none';
+}
+
+function previewImg(e){
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    imgData=ev.target.result;
+    const p=document.getElementById('imgPrev');
+    p.src=imgData; p.style.display='block';
+    document.getElementById('upArea').style.display='none';
+  };
+  r.readAsDataURL(f);
+}
+
+function publishDeal(){
+  const title=document.getElementById('dTitle').value.trim();
+  const cat=document.getElementById('dCat').value;
+  const desc=document.getElementById('dDesc').value.trim();
+  const loc=document.getElementById('dLoc').value.trim();
+  const orig=parseFloat(document.getElementById('dOrig').value);
+  const np=parseFloat(document.getElementById('dNew').value);
+  const maxDay=parseInt(document.getElementById('dMaxDay').value)||10;
+  const total=parseInt(document.getElementById('dTotal').value)||100;
+  const slotsRaw=document.getElementById('dSlots').value;
+  const slots=slotsRaw.split(',').map(s=>s.trim()).filter(Boolean);
+  const err=document.getElementById('dealErr');
+
+  if(!title||!desc||!loc||!orig||!np){err.textContent='Please fill all required fields.';err.classList.add('show');return;}
+  if(np>=orig){err.textContent='Deal price must be lower than original price.';err.classList.add('show');return;}
+  if(!slots.length){err.textContent='Add at least one time slot.';err.classList.add('show');return;}
+  err.classList.remove('show');
+
+  const fixedDate=addExpiryType==='fixed'?document.getElementById('dFixedDate').value:null;
+  const days=addExpiryType==='flexible'?parseInt(document.getElementById('dDays').value):null;
+
+  allDeals.unshift({
+    id:Date.now(), title, category:cat, location:loc, desc,
+    origPrice:orig, newPrice:np, maxDay, total, sold:0,
+    biz:currentUser.bizName, bizId:currentUser.email,
+    expiryType:addExpiryType, days, fixedDate, slots, img:imgData
   });
 
-  document.getElementById('voucherModal').classList.add('open');
-
-  // Update sold count
-  deal.sold = Math.min(deal.sold + 1, deal.total);
-  showToast('🎉 Voucher created! Code: ' + code);
-}
-
-function closeVoucher() { document.getElementById('voucherModal').classList.remove('open'); }
-
-// ─── DASHBOARD ────────────────────────────────────────────
-function renderDashboard() {
-  if (!currentUser) return;
-  document.getElementById('dashBizName').textContent = currentUser.bizName;
-  const myDeals = allDeals.filter(d => d.bizId === currentUser.email);
-  document.getElementById('statDeals').textContent = myDeals.length;
-  const totalSold = myDeals.reduce((s,d) => s+d.sold, 0);
-  document.getElementById('statSold').textContent = totalSold;
-  const rev = myDeals.reduce((s,d) => s + (d.sold * d.newPrice * 0.7), 0);
-  document.getElementById('statRev').textContent = '$' + Math.round(rev).toLocaleString();
-
-  const grid = document.getElementById('myDealsGrid');
-  if (!myDeals.length) {
-    grid.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><p>No deals yet. Click "Add New Deal" to get started!</p></div>';
-    return;
-  }
-  grid.innerHTML = myDeals.map(d => {
-    const pct = Math.round((1-d.newPrice/d.origPrice)*100);
-    return `
-    <div class="my-deal-card">
-      <div class="my-deal-status status-live">● Live</div>
-      <span class="my-deal-emoji">${d.emoji || catEmojis[d.category] || '🎟️'}</span>
-      <div class="my-deal-name">${d.title}</div>
-      <div class="my-deal-price">$${d.newPrice} <span style="color:#a0aec0;text-decoration:line-through;font-weight:400">$${d.origPrice}</span> · ${pct}% off</div>
-      <div class="my-deal-stats">
-        Sold: <span>${d.sold}</span> &nbsp; Remaining: <span>${d.total - d.sold}</span>
-      </div>
-      <div class="deal-actions">
-        <button class="deal-action-btn btn-delete" onclick="deleteDeal(${d.id})">Delete</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function deleteDeal(id) {
-  allDeals = allDeals.filter(d => d.id !== id);
+  // Reset
+  ['dTitle','dDesc','dLoc','dOrig','dNew','dMaxDay','dTotal','dSlots'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('imgPrev').style.display='none';
+  document.getElementById('upArea').style.display='block';
+  imgData=null;
+  closeModal('addDealModal');
   renderDashboard();
-  showToast('Deal removed');
+  toast('🚀 Deal is live on ArubaDeals!');
 }
 
-// ─── ADD DEAL ─────────────────────────────────────────────
-let uploadedImageData = null;
-
-function openAddDeal() { document.getElementById('addDealModal').classList.add('open'); }
-function closeAddDeal() { document.getElementById('addDealModal').classList.remove('open'); }
-
-function previewImage(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    uploadedImageData = ev.target.result;
-    const preview = document.getElementById('imagePreview');
-    preview.src = uploadedImageData;
-    preview.style.display = 'block';
-    document.getElementById('uploadArea').style.display = 'none';
-  };
-  reader.readAsDataURL(file);
-}
-
-function publishDeal() {
-  const title = document.getElementById('dealTitle').value.trim();
-  const cat = document.getElementById('dealCategory').value;
-  const desc = document.getElementById('dealDesc').value.trim();
-  const loc = document.getElementById('dealLocation').value.trim();
-  const origPrice = parseFloat(document.getElementById('dealOrigPrice').value);
-  const newPrice = parseFloat(document.getElementById('dealNewPrice').value);
-  const total = parseInt(document.getElementById('dealTotal').value) || 100;
-  const expiry = document.getElementById('dealExpiry').value;
-  const errEl = document.getElementById('dealError');
-
-  if (!title || !desc || !loc || !origPrice || !newPrice) {
-    errEl.textContent = 'Please fill in all required fields.';
-    errEl.classList.add('show');
+// ─── SCAN ────────────────────────────────────────────────────
+function verifyVoucher(){
+  const code=document.getElementById('scanIn').value.trim().toUpperCase();
+  const res=document.getElementById('scanRes');
+  if(!code){toast('Enter a voucher code');return;}
+  const v=voucherCodes[code];
+  if(!v){
+    res.className='scan-res show sr-invalid';
+    res.innerHTML=`<div class="sr-top"><div class="sr-icon">✕</div><div><div class="sr-h">Invalid Voucher</div><div class="sr-p">This code was not found in the system.</div></div></div>`;
     return;
   }
-  if (newPrice >= origPrice) {
-    errEl.textContent = 'Deal price must be lower than original price.';
-    errEl.classList.add('show');
+  if(v.redeemed){
+    res.className='scan-res show sr-used';
+    res.innerHTML=`<div class="sr-top"><div class="sr-icon">⚠️</div><div><div class="sr-h">Already Redeemed</div><div class="sr-p">This voucher was already used.</div></div></div>`;
     return;
   }
-
-  errEl.classList.remove('show');
-
-  const newDeal = {
-    id: Date.now(),
-    title, category:cat, location:loc, desc,
-    emoji: catEmojis[cat] || '🎟️',
-    bg: catBgs[cat] || 'linear-gradient(135deg,#667eea,#764ba2)',
-    origPrice, newPrice, total, sold: 0,
-    biz: currentUser.bizName,
-    bizId: currentUser.email,
-    expiry, img: uploadedImageData
-  };
-
-  allDeals.unshift(newDeal);
-
-  // Reset form
-  document.getElementById('dealTitle').value = '';
-  document.getElementById('dealDesc').value = '';
-  document.getElementById('dealLocation').value = '';
-  document.getElementById('dealOrigPrice').value = '';
-  document.getElementById('dealNewPrice').value = '';
-  document.getElementById('dealTotal').value = '';
-  document.getElementById('imagePreview').style.display = 'none';
-  document.getElementById('uploadArea').style.display = 'block';
-  uploadedImageData = null;
-
-  closeAddDeal();
-  renderDashboard();
-  showToast('🚀 Deal is now live on ArubaDeals!');
-}
-
-// ─── SCAN / VERIFY ────────────────────────────────────────
-function verifyVoucher() {
-  const code = document.getElementById('scanInput').value.trim().toUpperCase();
-  const result = document.getElementById('scanResult');
-
-  if (!code) { showToast('Enter a voucher code'); return; }
-
-  const voucher = window.voucherCodes && window.voucherCodes[code];
-
-  if (!voucher) {
-    result.innerHTML = `
-      <div class="scan-valid">
-        <div class="scan-check" style="background:rgba(255,95,95,0.1);color:var(--coral)">✕</div>
-        <div class="scan-valid-text">
-          <h3 style="color:var(--coral)">Invalid Voucher</h3>
-          <p>This code was not found or has expired.</p>
-        </div>
-      </div>`;
-    result.classList.add('show');
-    return;
-  }
-
-  if (voucher.redeemed) {
-    result.innerHTML = `
-      <div class="scan-valid">
-        <div class="scan-check" style="background:rgba(245,166,35,0.1);color:var(--sun)">⚠️</div>
-        <div class="scan-valid-text">
-          <h3 style="color:var(--sun)">Already Redeemed</h3>
-          <p>This voucher has already been used.</p>
-        </div>
-      </div>`;
-    result.classList.add('show');
-    return;
-  }
-
-  result.innerHTML = `
-    <div class="scan-valid">
-      <div class="scan-check">✓</div>
-      <div class="scan-valid-text">
-        <h3>Valid Voucher!</h3>
-        <p>Ready to redeem</p>
-      </div>
+  res.className='scan-res show sr-valid';
+  res.innerHTML=`
+    <div class="sr-top"><div class="sr-icon">✓</div><div><div class="sr-h">Valid Voucher ✓</div><div class="sr-p">Ready to redeem</div></div></div>
+    <div class="sr-info">
+      <div class="sr-dname">${v.deal}</div>
+      <div class="sr-det">📅 Booked for ${v.date} at ${v.time}</div>
+      <div class="sr-det">👤 ${v.name}</div>
+      <div class="sr-wa">📱 ${v.wa}</div>
+      <div class="sr-det" style="margin-top:6px;font-weight:600;color:var(--coral)">Customer pays: AWG $${v.price} on arrival</div>
     </div>
-    <div class="scan-deal-info">
-      <div class="scan-deal-name">${voucher.deal}</div>
-      <div class="scan-deal-detail">📍 ${voucher.biz} · Deal price: $${voucher.price}</div>
-    </div>
-    <button class="scan-mark-btn" onclick="markRedeemed('${code}')">✓ Mark as Redeemed</button>`;
-  result.classList.add('show');
+    <button class="sr-mbtn" onclick="markRedeemed('${code}')">✓ Mark as Redeemed — Customer Has Paid</button>`;
 }
 
-function markRedeemed(code) {
-  if (window.voucherCodes && window.voucherCodes[code]) {
-    window.voucherCodes[code].redeemed = true;
-  }
-  document.getElementById('scanResult').innerHTML = `
-    <div class="scan-valid">
-      <div class="scan-check">✓</div>
-      <div class="scan-valid-text">
-        <h3>Redeemed Successfully!</h3>
-        <p>Customer has received their deal. Enjoy! 🎉</p>
-      </div>
+function markRedeemed(code){
+  if(voucherCodes[code]) voucherCodes[code].redeemed=true;
+  document.getElementById('scanRes').innerHTML=`
+    <div class="scan-res show sr-valid" style="display:block">
+      <div class="sr-top"><div class="sr-icon">✓</div><div><div class="sr-h">Redeemed Successfully!</div><div class="sr-p">Customer has paid and received their deal. 🎉</div></div></div>
     </div>`;
-  showToast('✅ Voucher redeemed!');
+  renderDashboard();
+  toast('✅ Voucher redeemed! Commission tracked.');
 }
 
-// ─── TOAST ────────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+// ─── HELPERS ─────────────────────────────────────────────────
+function formatDate(ds){
+  if(!ds)return '';
+  const d=new Date(ds);
+  return d.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+}
+function formatDate2(d){
+  if(!d)return '';
+  return d.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'});
+}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
 }
 
-// Click outside modals to close
-document.getElementById('dealModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeDealModal(); });
-document.getElementById('voucherModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeVoucher(); });
-document.getElementById('addDealModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeAddDeal(); });
+// Close modals on outside click
+['dealOv','bookOv','addDealModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(id);});
+});
 
-// Init
 renderDeals(allDeals);
 </script>
 </body>
